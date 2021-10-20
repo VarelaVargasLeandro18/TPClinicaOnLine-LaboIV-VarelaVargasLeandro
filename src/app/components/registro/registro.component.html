@@ -1,106 +1,134 @@
 <h4 class="mb-3">Registro</h4>
-<form class="needs-validation" novalidate>
+<form [formGroup]="this.form" novalidate>
     <div class="row g-3">
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('razon')" class="col-sm-6">
         <label for="reason" class="form-label">Raz&oacute;n</label>
-        <select class="form-select" id="reason" required>
+        <select formControlName="razon" class="form-select" id="reason" required>
             <option value="" disabled selected>Elige</option>
             <option *ngFor="let categoria of this.categorias" [value]="categoria.id">{{categoria.tipo}}</option>
         </select>
-        <div class="invalid-feedback">
-        Please select a valid country.
+        <div *ngIf="this.form.controls.razon.errors?.required" class="text-danger">
+        Este valor es requerido.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('especialidad')" class="col-sm-6">
         <label for="speciality" class="form-label">Especialidad</label>
-        <select class="form-select" id="speciality" required>
+        <select formControlName="especialidad" class="form-select" id="speciality" required>
             <option value="" disabled selected>Elige</option>
             <option *ngFor="let especialidad of this.especialidades" [value]="especialidad.id">{{especialidad.tipo}}</option>
         </select>
-        <div class="invalid-feedback">
-        Please provide a valid state.
+        <div *ngIf="this.form.controls.especialidad.errors?.required" class="text-danger">
+        Este valor es requerido.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('nombre')" class="col-sm-6">
         <label for="firstName" class="form-label">Nombre:</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Nombre" value="">
-        <div class="invalid-feedback">
-        Valid first name is required.
+        <input formControlName="nombre" type="text" class="form-control" id="firstName" placeholder="Nombre" value="">
+        <div *ngIf="this.form.controls.nombre.errors?.required" class="text-danger">
+        Este valor es requerido.
+        </div>
+        <div *ngIf="this.form.controls.nombre.errors?.pattern" class="text-danger">
+        Solo se pueden ingresar letras sin espacios.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('apellido')" class="col-sm-6">
         <label for="lastName" class="form-label">Apellido</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Apellido" value="">
-        <div class="invalid-feedback">
-        Valid last name is required.
+        <input formControlName="apellido" type="text" class="form-control" id="lastName" placeholder="Apellido" value="">
+        <div *ngIf="this.form.controls.apellido.errors?.required" class="text-danger">
+        Este valor es requerido.
+        </div>
+        <div *ngIf="this.form.controls.apellido.errors?.pattern" class="text-danger">
+        Solo se pueden ingresar letras. Pueden incluirse espacios.
         </div>
     </div>
 
-    <div class="col-sm-6">
-        <!-- <label for="username" class="form-label">Edad</label>
-        <div class="input-group has-validation">
-        <span class="input-group-text">@</span>
-        <input type="text" class="form-control" id="username" placeholder="Username"> -->
+    <div *ngIf="this.isRequiredField('edad')" class="col-sm-6">
         <label for="age" class="form-label">Edad</label>
-        <input class="form-control" id="age" type="number" min="0" max="150" step="1" name="age" placeholder="18"/>
-        <div class="invalid-feedback">
-            Your username is required.
+        <input formControlName="edad" class="form-control" id="age" type="number" min="0" max="150" step="1" name="age" placeholder="18"/>
+        <div *ngIf="this.form.controls.edad.errors?.required" class="text-danger">
+        Este valor es requerido.
         </div>
-        <!-- </div> -->
+        <div *ngIf="this.form.controls.edad.errors?.min" class="text-danger">
+        Debe tener m&iacute;nimo 18 a&ntilde;os. ( {{this.EDAD_MINIMA}} )
+        </div>
+        <div *ngIf="this.form.controls.edad.errors?.max" class="text-danger">
+        Excedi&oacute; la edad m&aacute;xima. ( {{this.EDAD_MAXIMA}} )
+        </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('dni')" class="col-sm-6">
         <label for="dni" class="form-label">DNI</label>
-        <input type="text" class="form-control" id="dni" placeholder="xxxxxxxx" required>
-        <div class="invalid-feedback">
-        Please enter your shipping address.
+        <input formControlName="dni" type="text" class="form-control" id="dni" placeholder="xxxxxxxx" required>
+        <div *ngIf="this.form.controls.dni.errors?.required" class="text-danger">
+        Este es un valor requerido.
+        </div>
+        <div *ngIf="this.form.controls.dni.errors?.pattern" class="text-danger">
+        Solo se pueden ingresar n&uacute;meros.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('obraSocial')" class="col-sm-6">
         <label for="health-insurance" class="form-label">Obra social</label>
-        <input type="text" class="form-control" id="healt-insurance" placeholder="Obra social">
+        <input formControlName="obraSocial" type="text" class="form-control" id="healt-insurance" placeholder="Obra social">
+        <div *ngIf="this.form.controls.obraSocial.errors?.required" class="text-danger">
+        Este es un valor requerido.
+        </div>
+        <div *ngIf="this.form.controls.obraSocial.errors?.pattern" class="text-danger">
+        Solo se pueden ingresar letras. Pueden incluirse espacios.
+        </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('email')" class="col-sm-6">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="you@example.com">
-        <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="you@example.com">
+        <div *ngIf="this.form.controls.email.errors?.required" class="text-danger">
+        Este es un valor requerido.
+        </div>
+        <div *ngIf="this.form.controls.email.errors?.email" class="text-danger">
+        Debe ingrear una direcci&oacute;n email v&aacute;lida.
         </div>
     </div>
 
-    <div class="col-12">
+    <div 
+        *ngIf="this.isRequiredField('contrasenia')" 
+        [ngClass]="{ 'col-12': isRequiredField('obraSocial'), 'col-sm-6': !isRequiredField('obraSocial')}">
         <label for="password" class="form-label">Contrase&ntilde;a</label>
-        <input type="password" class="form-control" id="password" placeholder="contrasenia123">
-        <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
+        <input formControlName="contrasenia" type="password" class="form-control" id="password" placeholder="contrasenia123">
+        <div *ngIf="this.form.controls.contrasenia.errors?.required" class="text-danger">
+        Este es un valor requerido.
+        </div>
+        <div *ngIf="this.form.controls.contrasenia.errors?.pattern" class="text-danger">
+        Solo se pueden ingresar valores alfanum&eacute;ricos. No pueden incluirse espacios.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div 
+        *ngIf="this.isRequiredField('imagenUno')"
+        [ngClass]="{ 'col-12': !isRequiredField('obraSocial'), 'col-sm-6': isRequiredField('obraSocial')}">
         <label for="img-1" class="form-label">Imagen de Perfil 1</label>
-        <input  class="form-control"
+        <input  formControlName="imagenUno"
+                class="form-control"
                 type="file"
                 id="img-1" name="img-1"
                 accept="image/png, image/jpeg">
-        <div class="invalid-feedback">
-        Zip code required.
+        <div *ngIf="this.form.controls.imagenUno.errors?.required" class="text-danger">
+        Este es un valor requerido.
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="this.isRequiredField('imagenDos')" class="col-sm-6">
         <label for="img-2" class="form-label">Imagen de Perfil 2</label>
-        <input  class="form-control"
+        <input  formControlName="imagenDos"
+                class="form-control"
                 type="file"
                 id="img-2" name="img-2"
                 accept="image/png, image/jpeg">
-        <div class="invalid-feedback">
-        Zip code required.
+        <div *ngIf="this.form.controls.imagenDos.errors?.required" class="text-danger">
+        Este es un valor requerido.
         </div>
     </div>
 
