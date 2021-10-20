@@ -4,8 +4,16 @@ body {
     margin: 0;
 }
 
-.container {
+/* .container {
     display: grid;
     place-items: center;
     height: 100%;
+} */
+
+main {
+    min-height: 80vh;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
 }

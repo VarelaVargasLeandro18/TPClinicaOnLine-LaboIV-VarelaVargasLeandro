@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/usuario/usuario';
 import { UsuarioService } from '../usuarioService/usuario.service';
 import { Logger } from 'src/app/models/logger/logger';
 import { AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UsuarioDAOService implements OnInit {
 
   constructor(
     private usuarioService : UsuarioService,
-    private db : AngularFirestore
+    private db : AngularFirestore,
+    private auth : AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,15 @@ export class UsuarioDAOService implements OnInit {
 
   async register ( usuario : Usuario ) {
     const usuarioLogeado = ( await this.checkIfExist(usuario) );
+
+    try {
+      await this.auth.createUserWithEmailAndPassword( 
+              usuario.email ? usuario.email : '', 
+              usuario.contrasenia ? usuario.contrasenia : ''
+      );
+    } catch (err) {
+      this.usuarioService.errorRegistrar( "El mail ingresado no es válido!" );
+    }    
     
     if ( usuarioLogeado != undefined ) {
       this.usuarioService.usuarioExistente('Este email se encuentra en uso.');
