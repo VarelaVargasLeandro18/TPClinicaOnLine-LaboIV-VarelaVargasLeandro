@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Categoria } from 'src/app/models/categoria/categoria';
+import { Especialidad } from 'src/app/models/especialidad/especialidad';
+import { CategoriasService } from 'src/app/services/categoriasService/categorias.service';
+import { EspecialidadService } from 'src/app/services/especialidadService/especialidad.service';
 
 @Component({
   selector: 'app-registro',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+  public categorias : Categoria[] = [];
+  public especialidades : Especialidad[] = [];
 
-  ngOnInit(): void {
+  constructor(
+    private categoriasService : CategoriasService,
+    private especialidadesService : EspecialidadService
+  ) {}
+
+  async ngOnInit() {
+    this.categorias = await this.categoriasService.getCategorias();
+    this.especialidades = await this.especialidadesService.getCategorias();
   }
 
 }

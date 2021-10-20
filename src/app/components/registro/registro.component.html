@@ -5,8 +5,8 @@
     <div class="col-sm-6">
         <label for="reason" class="form-label">Raz&oacute;n</label>
         <select class="form-select" id="reason" required>
-        <option value="" disabled selected>Elige</option>
-            <option>Agregar opciones de BBDD</option>
+            <option value="" disabled selected>Elige</option>
+            <option *ngFor="let categoria of this.categorias" [value]="categoria.id">{{categoria.tipo}}</option>
         </select>
         <div class="invalid-feedback">
         Please select a valid country.
@@ -16,8 +16,8 @@
     <div class="col-sm-6">
         <label for="speciality" class="form-label">Especialidad</label>
         <select class="form-select" id="speciality" required>
-        <option value="" disabled selected>Elige</option>
-            <option>Agregar opciones de BBDD</option>
+            <option value="" disabled selected>Elige</option>
+            <option *ngFor="let especialidad of this.especialidades" [value]="especialidad.id">{{especialidad.tipo}}</option>
         </select>
         <div class="invalid-feedback">
         Please provide a valid state.
