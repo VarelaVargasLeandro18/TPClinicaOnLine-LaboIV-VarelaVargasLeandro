@@ -9,6 +9,7 @@ export class Usuario {
         public email? : string,
         public contrasenia? : string,
         public imagenUnoUrl? : string,
-        public imagenDosUrl? : string
+        public imagenDosUrl? : string,
+        public categoriaId? : number
     ) {}
 }

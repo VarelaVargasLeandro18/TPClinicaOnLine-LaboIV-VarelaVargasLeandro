@@ -5,6 +5,7 @@
       </a>
       <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="log-in">Iniciar Sesión</a>
       <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="sign-up">Crear cuenta</a>
+      <a *ngIf="usuario?.categoriaId === 0" class="nav-link rounded border border-black" routerLink="users">Usuarios</a>
       <button *ngIf="usuario" class="btn btn-lg btn-danger" > <i class="fas fa-sign-out-alt"></i> Log Out</button>
     </nav>
 </header>
