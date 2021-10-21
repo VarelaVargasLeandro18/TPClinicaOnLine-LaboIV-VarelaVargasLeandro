@@ -13,7 +13,7 @@ export class AdministradorGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.usuarioService.iniciado?.categoriaId === 0;
+    return this.usuarioService.iniciado?.razon === "0";
   }
   
 }

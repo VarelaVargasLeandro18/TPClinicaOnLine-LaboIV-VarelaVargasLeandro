@@ -4,6 +4,7 @@ import { UsuarioService } from '../usuarioService/usuario.service';
 import { Logger } from 'src/app/models/logger/logger';
 import { AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class UsuarioDAOService implements OnInit {
 
   ngOnInit() {
   } 
+
+  obtenerTodosLosUsuarios () {
+    return this.db.collection( this.collectionUsr ).get().pipe(
+      map( (usuarios) => usuarios.docs.map( usuarioSnapshot => usuarioSnapshot.data() ) )
+    );
+  }
 
   async login ( usuario : Usuario ) {
     const usuarioSnapshot = await this.checkIfExist(usuario);
@@ -56,6 +63,7 @@ export class UsuarioDAOService implements OnInit {
       );
     } catch (err) {
       this.usuarioService.errorRegistrar( "El mail ingresado no es válido!" );
+      return
     }    
     
     if ( usuarioLogeado != undefined ) {
@@ -64,17 +72,13 @@ export class UsuarioDAOService implements OnInit {
     }
     
     try {
-      await this.db.collection(this.collectionUsr).doc( usuario.email ).set( {
-        contrasenia: usuario.contrasenia,
-        apellido: usuario.apellido,
-        nombre: usuario.nombre
-      } );
+      await this.db.collection(this.collectionUsr).doc( usuario.email ).set( {...usuario} );
       const usuarioRef = (await this.db.collection( this.collectionUsr ).doc<Usuario>( usuario.email ).get().toPromise()).ref;
       this.logger( usuarioRef, 'Registro' );
       this.usuarioService.registroUsuario( usuario );
     } catch ( error ) {
-      console.error(error)
       this.usuarioService.errorRegistrar( 'Error al realizar el registro' );
+      throw error;
     }
   }
 
@@ -91,7 +95,5 @@ export class UsuarioDAOService implements OnInit {
     this.db.collection('logs').add( {...log} );
 
   }
-
-
 
 }

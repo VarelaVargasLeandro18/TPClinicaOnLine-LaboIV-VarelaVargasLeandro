@@ -1,0 +1,7 @@
+.scrollable {
+    overflow: scroll;
+}
+
+.m-w-300 {
+    max-width: 300px;
+}

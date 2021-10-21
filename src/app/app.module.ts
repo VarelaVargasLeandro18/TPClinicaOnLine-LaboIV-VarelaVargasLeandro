@@ -1,6 +1,7 @@
 //#region ANGULAR FIRE
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 //#endregion
 
 import { NgModule } from '@angular/core';
@@ -31,7 +32,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,11 @@
 <h4 class="mb-3">Registro</h4>
-<form [formGroup]="this.form" novalidate>
+<form [formGroup]="this.form" (ngSubmit)="this.onSubmit($event)">
     <div class="row g-3">
 
     <div *ngIf="this.isRequiredField('razon')" class="col-sm-6">
         <label for="reason" class="form-label">Raz&oacute;n</label>
         <select formControlName="razon" class="form-select" id="reason" required>
-            <option value="" disabled selected>Elige</option>
+            <option [value]=undefined disabled selected>Elige</option>
             <option *ngFor="let categoria of this.categorias" [value]="categoria.id">{{categoria.tipo}}</option>
         </select>
         <div *ngIf="this.form.controls.razon.errors?.required" class="text-danger">
@@ -16,7 +16,7 @@
     <div *ngIf="this.isRequiredField('especialidad')" class="col-sm-6">
         <label for="speciality" class="form-label">Especialidad</label>
         <select formControlName="especialidad" class="form-select" id="speciality" required>
-            <option value="" disabled selected>Elige</option>
+            <option [value]=undefined disabled selected>Elige</option>
             <option *ngFor="let especialidad of this.especialidades" [value]="especialidad.id">{{especialidad.tipo}}</option>
         </select>
         <div *ngIf="this.form.controls.especialidad.errors?.required" class="text-danger">
@@ -104,6 +104,9 @@
         <div *ngIf="this.form.controls.contrasenia.errors?.pattern" class="text-danger">
         Solo se pueden ingresar valores alfanum&eacute;ricos. No pueden incluirse espacios.
         </div>
+        <div *ngIf="this.form.controls.contrasenia.errors?.minLength" class="text-danger">
+        Debe ingresar como m&iacute;nimo 6 caracteres.
+        </div>
     </div>
 
     <div 
@@ -114,10 +117,15 @@
                 class="form-control"
                 type="file"
                 id="img-1" name="img-1"
-                accept="image/png, image/jpeg">
+                accept="image/png, image/jpeg"
+                *ngIf="this.form.controls.email.valid"
+                (change)="this.subirArchivoUno($event)">
         <div *ngIf="this.form.controls.imagenUno.errors?.required" class="text-danger">
         Este es un valor requerido.
         </div>
+        <div *ngIf="!this.form.controls.email.valid" class="text-danger">
+            Ingrese un email valido para subir su archivo.
+        </div>     
     </div>
 
     <div *ngIf="this.isRequiredField('imagenDos')" class="col-sm-6">
@@ -126,15 +134,22 @@
                 class="form-control"
                 type="file"
                 id="img-2" name="img-2"
-                accept="image/png, image/jpeg">
+                accept="image/png, image/jpeg"
+                *ngIf="this.form.controls.email.valid"
+                (change)="this.subirArchivoDos($event)">
         <div *ngIf="this.form.controls.imagenDos.errors?.required" class="text-danger">
         Este es un valor requerido.
         </div>
+        <div *ngIf="!this.form.controls.email.valid" class="text-danger">
+            Ingrese un email valido para subir su archivo.
+        </div>   
     </div>
 
     </div>
 
     <hr class="my-4">
+    <span class="text-success">{{this.mensajeRegistro}}</span>
+    <span class="text-danger">{{this.mensajeErrorRegistro}}</span>
+    <button [disabled]="!this.form.valid" class="w-100 btn btn-primary btn-lg" type="submit">Registrarse</button>
 
-    <button class="w-100 btn btn-primary btn-lg" type="submit">Registrarse</button>
 </form>

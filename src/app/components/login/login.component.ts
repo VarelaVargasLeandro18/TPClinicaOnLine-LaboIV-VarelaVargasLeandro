@@ -51,10 +51,10 @@ export class LoginComponent implements OnInit {
     const email = this.loginCuentaForm.value.email;
     const contrasenia = this.loginCuentaForm.value.password;
 
-    const usuario = new Usuario( 
-      email, 
-      contrasenia 
-    );
+    const usuario = new Usuario();
+
+    usuario.email = email;
+    usuario.contrasenia = contrasenia;
 
     this.usuario_backend_service.login(usuario);
   }
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   iniciarSesionAutomaticamente() {
     this.loginCuentaForm.patchValue({
       email: "admin@admin.com",
-      password: "12345"
+      password: "123456"
     });
   }
 
