@@ -24,8 +24,13 @@
         </div>
     </div>
 
+    <div *ngIf="this.isRequiredField('especialidad')" class="col-12">
+        <label for="especialidad" class="form-label">Especialidad</label>
+        <input formControlName="especialidad" type="text" class="form-control" id="especialidad" placeholder="Especialidad" value="">
+    </div>
+
     <div *ngIf="this.isRequiredField('nombre')" class="col-sm-6">
-        <label for="firstName" class="form-label">Nombre:</label>
+        <label for="firstName" class="form-label">Nombre</label>
         <input formControlName="nombre" type="text" class="form-control" id="firstName" placeholder="Nombre" value="">
         <div *ngIf="this.form.controls.nombre.errors?.required" class="text-danger">
         Este valor es requerido.

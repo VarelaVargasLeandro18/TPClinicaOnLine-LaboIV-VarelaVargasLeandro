@@ -9,7 +9,7 @@
             <th>Mail</th>
             <th>Contrase&ntilde;a</th>
         </tr>
-        <tr *ngFor="let usuario of this.usuarios">
+        <tr *ngFor="let usuario of this.usuarios; let i = index">
             <td>
                 <img class="img-fluid img-thumbnail rounded m-w-300" [src]="usuario.imagenUnoUrl" alt="Foto de perfil de Usuario">
             </td>
@@ -30,6 +30,13 @@
             </td>
             <td>
                 {{usuario.contrasenia}}
+            </td>
+            <td *ngIf="usuario.aprobado != undefined">
+                <label for="aprobado">
+                    Aprobado:
+                    <input [(ngModel)]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
+                </label>
+                <span *ngIf="this.actualizado" class="text-success">Especialidad actualizada!</span>
             </td>
         </tr>
     </table>

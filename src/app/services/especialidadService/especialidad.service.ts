@@ -18,5 +18,9 @@ export class EspecialidadService {
       new Especialidad( parseInt(especialidad.id) , (especialidad.data() as any).tipo )
     );
   }
+
+  agregarCategoria( categoria : string  ) {
+    return this.db.collection(this.collection).add( {tipo: categoria} );
+  }
   
 }

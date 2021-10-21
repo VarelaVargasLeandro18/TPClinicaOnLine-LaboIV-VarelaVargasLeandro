@@ -20,7 +20,11 @@ export class UsuarioDAOService implements OnInit {
   ) { }
 
   ngOnInit() {
-  } 
+  }
+
+  actualizarUsuario ( usuario : Usuario ) {
+    return this.db.collection( this.collectionUsr ).doc( usuario.email ).update ( {...usuario} );
+  }
 
   obtenerTodosLosUsuarios () {
     return this.db.collection( this.collectionUsr ).get().pipe(

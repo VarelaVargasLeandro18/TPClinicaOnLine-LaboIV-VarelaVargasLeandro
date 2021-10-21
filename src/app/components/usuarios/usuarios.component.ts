@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario/usuario';
 import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.servi
 export class UsuariosComponent implements OnInit {
 
   public usuarios : any[] = [];
+  public actualizado : boolean = false;
 
   constructor(
     private usuarioDaoService : UsuarioDAOService
@@ -17,6 +19,12 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onAprobadoClick ( usuario : Usuario, event : any ) {
+    usuario.aprobado = event.target.value === "on";
+    console.log(event.target.value);
+    this.usuarioDaoService.actualizarUsuario(usuario).then( () => this.actualizado = true );
   }
 
 }

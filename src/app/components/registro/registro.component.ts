@@ -45,7 +45,8 @@ export class RegistroComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       contrasenia: [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9]+$/i), Validators.minLength(6)]],
       imagenUno: [null, [Validators.required]],
-      imagenDos: [null, [Validators.required]]
+      imagenDos: [null, [Validators.required]],
+      especialidadNueva: [null]
     });
     this.setValidatorsSegunEspecialidad();
   }
@@ -121,6 +122,7 @@ export class RegistroComponent implements OnInit {
     const obraSocial = this.form.controls.obraSocial.value;
     const email = this.form.controls.email.value;
     const contrasenia = this.form.controls.contrasenia.value;
+    const especialidadNueva = this.form.controls.especialidadNueva.value;
     const imagenUno = this.imagenUnoUrl;
     const imagenDos = this.imagenDosUrl;
 
@@ -150,6 +152,11 @@ export class RegistroComponent implements OnInit {
         this.usuarioDAOService.login( usuario );
       } )
       .catch( (error) => {this.mensajeErrorRegistro = "ERROR AL REGISTRAR USUARIO!"; console.error(error)} );
+
+    if ( especialidad != "" || especialidad != null || especialidad != undefined ) {
+      this.especialidadesService.agregarCategoria(especialidad).then( () => console.log("Especialidad Agregada!!") );
+    } 
+
   }
 
 }
