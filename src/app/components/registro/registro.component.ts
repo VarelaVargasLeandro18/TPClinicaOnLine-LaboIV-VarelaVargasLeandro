@@ -153,8 +153,8 @@ export class RegistroComponent implements OnInit {
       } )
       .catch( (error) => {this.mensajeErrorRegistro = "ERROR AL REGISTRAR USUARIO!"; console.error(error)} );
 
-    if ( especialidad != "" || especialidad != null || especialidad != undefined ) {
-      this.especialidadesService.agregarCategoria(especialidad).then( () => console.log("Especialidad Agregada!!") );
+    if ( especialidadNueva != "" || especialidadNueva != null || especialidadNueva != undefined ) {
+      this.especialidadesService.agregarCategoria(especialidadNueva).then( () => console.log("Especialidad Agregada!!") );
     } 
 
   }
