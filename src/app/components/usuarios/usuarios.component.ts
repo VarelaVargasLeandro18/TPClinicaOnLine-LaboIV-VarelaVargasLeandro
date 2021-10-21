@@ -22,7 +22,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   onAprobadoClick ( usuario : Usuario, event : any ) {
-    usuario.aprobado = event.target.value === "on";
+    usuario.aprobado = event.target.checked;
     console.log(event.target.value);
     this.usuarioDaoService.actualizarUsuario(usuario).then( () => this.actualizado = true );
   }
