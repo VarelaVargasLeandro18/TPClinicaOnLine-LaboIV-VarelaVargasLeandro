@@ -6,6 +6,7 @@
       <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="log-in">Iniciar Sesión</a>
       <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="sign-up">Crear cuenta</a>
       <a *ngIf="usuario?.razon === '0'" class="nav-link rounded border border-black" routerLink="users">Usuarios</a>
+      <a *ngIf="usuario" class="nav-link rounded border border-black" routerLink="misTurnos">Mi Turno</a>
       <a (click)="this.onLogOut()" *ngIf="usuario" class="nav-link rounded border border-black hover"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
     </nav>
 </header>

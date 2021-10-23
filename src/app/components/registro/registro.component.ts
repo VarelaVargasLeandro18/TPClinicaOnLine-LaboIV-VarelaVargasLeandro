@@ -21,6 +21,7 @@ export class RegistroComponent implements OnInit {
   public especialidades : Especialidad[] = [];
   public mensajeRegistro : string = "";
   public mensajeErrorRegistro : string = "";
+  public habilitarBoton : boolean = false;
 
   private imagenUnoUrl? : string = undefined;
   private imagenDosUrl? : string = undefined;
@@ -89,11 +90,20 @@ export class RegistroComponent implements OnInit {
   subirArchivoUno ( event : any ) {
     const email = this.form.controls.email.value;
     const imagenUno : File = event.target.files[0];
-    console.log(imagenUno.name);
     const imagenUnoNombre = email + "_1";
 
     const tareaImagenUno = this.uploadService.tareaCloudStorage( imagenUnoNombre, imagenUno );
-    tareaImagenUno.then( (termino) => termino.ref.getDownloadURL().then( (URL) => this.imagenUnoUrl = URL ) );
+    tareaImagenUno.then( (termino) => termino.ref.getDownloadURL().then( (URL) => {
+      this.imagenUnoUrl = URL;
+      
+      if ( !this.isRequiredField('imagenDos') ){
+        this.habilitarBoton = true;
+      }
+
+      if ( this.isRequiredField('imagenDos') && this.imagenDosUrl )
+        this.habilitarBoton = true;
+
+    } ) );
   }
 
   subirArchivoDos ( event : any ) {
@@ -104,7 +114,13 @@ export class RegistroComponent implements OnInit {
 
     if ( razon === "2" /* PACIENTE */ ) {
       const tareaImagenDos = this.uploadService.tareaCloudStorage( imagenDosNombre, imagenDos );
-      tareaImagenDos.then( (termino) => termino.ref.getDownloadURL().then( (URL) => this.imagenDosUrl = URL ) );
+      tareaImagenDos.then( (termino) => termino.ref.getDownloadURL().then( (URL) => {
+        this.imagenDosUrl = URL;
+
+        if ( this.imagenUnoUrl )
+          this.habilitarBoton = true;
+
+      } ) );
     }
   }
   
@@ -143,9 +159,9 @@ export class RegistroComponent implements OnInit {
     
     if ( razon === "2" /* PACIENTE */ ) {
       usuario.obraSocial = obraSocial;
-      console.log( imagenDos );
       usuario.imagenDosUrl = imagenDos;
     }   
+
     this.usuarioDAOService.register( usuario )
       .then( () => {
         this.mensajeRegistro = "USUARIO REGISTRADO!";

@@ -41,10 +41,9 @@ export class UsuarioDAOService implements OnInit {
     }
 
     const usuarioDB = usuarioSnapshot.data() as Usuario;
-    const usuarioReference = usuarioSnapshot.ref;
     usuarioDB.email = usuario.email;
     this.usuarioService.iniciarSesion( usuarioDB );
-    this.logger( usuarioReference, 'Inicio de Sesion' );
+    this.logger( usuarioDB.email, 'Inicio de Sesion' );
   }
 
   async checkIfExist ( usuario : Usuario ) {
@@ -60,7 +59,7 @@ export class UsuarioDAOService implements OnInit {
   async register ( usuario : Usuario ) {
     const usuarioLogeado = ( await this.checkIfExist(usuario) );
 
-    try {
+    /* try {
       await this.auth.createUserWithEmailAndPassword( 
               usuario.email ? usuario.email : '', 
               usuario.contrasenia ? usuario.contrasenia : ''
@@ -68,7 +67,7 @@ export class UsuarioDAOService implements OnInit {
     } catch (err) {
       this.usuarioService.errorRegistrar( "El mail ingresado no es válido!" );
       return
-    }    
+    }   */  
     
     if ( usuarioLogeado != undefined ) {
       this.usuarioService.usuarioExistente('Este email se encuentra en uso.');
@@ -77,8 +76,7 @@ export class UsuarioDAOService implements OnInit {
     
     try {
       await this.db.collection(this.collectionUsr).doc( usuario.email ).set( {...usuario} );
-      const usuarioRef = (await this.db.collection( this.collectionUsr ).doc<Usuario>( usuario.email ).get().toPromise()).ref;
-      this.logger( usuarioRef, 'Registro' );
+      this.logger( usuario.email, 'Registro' );
       this.usuarioService.registroUsuario( usuario );
     } catch ( error ) {
       this.usuarioService.errorRegistrar( 'Error al realizar el registro' );
@@ -86,18 +84,16 @@ export class UsuarioDAOService implements OnInit {
     }
   }
 
-  logger( refUsuario : DocumentReference<Usuario>, logEvent : string ) {
+  logger( email? : string, logEvent? : string ) {
 
     const hora = new Date();
     const log = new Logger(
       logEvent,
       hora,
-      refUsuario
+      email
     );
     
-    console.log({...log})
     this.db.collection('logs').add( {...log} );
-
   }
 
 }

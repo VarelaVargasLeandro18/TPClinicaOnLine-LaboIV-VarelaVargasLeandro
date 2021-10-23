@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'log-in', component: LoginComponent },
   { path: 'sign-up', component: RegistroComponent},
   { path: 'users', component: UsuariosComponent, canActivate: [AdministradorGuard] },
+  { path: 'misTurnos', loadChildren: () => import('./subModules/turno/turno.module').then(m => m.TurnoModule) },
   { path: '**', pathMatch: 'full', redirectTo:'/' }
 ];
 

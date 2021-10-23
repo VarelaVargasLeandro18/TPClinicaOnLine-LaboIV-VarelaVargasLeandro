@@ -1,0 +1,5 @@
+Agregados: 
+Login de usuarios: botones de acceso rápido tienen que ser fav-button y tener imagen de perfil de usuario y estar en la esquina inferior izquierda de la pantalla login
+Deben ser 6 usuarios:
+3 P, 2 E y 1 Admin
+Registro usuarios: llevar a pantalla con solo 2 botones y tiene que tener dos imagenes, una especialista y otra paciente, dependiendo el caso (botones rectangulares uno abajo del otro) redirigirte al form correspondiente (el form tiene que tener una animación)

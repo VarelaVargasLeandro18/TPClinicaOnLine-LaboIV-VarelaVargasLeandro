@@ -25,8 +25,8 @@
     </div>
 
     <div *ngIf="this.isRequiredField('especialidad')" class="col-12">
-        <label for="especialidad" class="form-label">Especialidad</label>
-        <input formControlName="especialidad" type="text" class="form-control" id="especialidad" placeholder="Especialidad" value="">
+        <label for="especialidadNueva" class="form-label">Especialidad</label>
+        <input formControlName="especialidadNueva" type="text" class="form-control" id="especialidadNueva" placeholder="Especialidad" value="">
     </div>
 
     <div *ngIf="this.isRequiredField('nombre')" class="col-sm-6">
@@ -155,6 +155,6 @@
     <hr class="my-4">
     <span class="text-success">{{this.mensajeRegistro}}</span>
     <span class="text-danger">{{this.mensajeErrorRegistro}}</span>
-    <button [disabled]="!this.form.valid" class="w-100 btn btn-primary btn-lg" type="submit">Registrarse</button>
+    <button [disabled]="!(this.form.valid && this.habilitarBoton)" class="w-100 btn btn-primary btn-lg" type="submit">Registrarse</button>
 
 </form>

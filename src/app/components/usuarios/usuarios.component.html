@@ -8,6 +8,8 @@
             <th>DNI</th>
             <th>Mail</th>
             <th>Contrase&ntilde;a</th>
+            <th></th>
+            <th></th>
         </tr>
         <tr *ngFor="let usuario of this.usuarios; let i = index">
             <td>
@@ -36,7 +38,9 @@
                     Aprobado:
                     <input [(ngModel)]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
                 </label>
-                <span *ngIf="this.actualizado" class="text-success">Especialidad actualizada!</span>
+            </td>
+            <td>
+                <span *ngIf="usuario.aprobado != undefined && this.actualizado" class="text-success">Especialidad actualizada!</span>
             </td>
         </tr>
     </table>
