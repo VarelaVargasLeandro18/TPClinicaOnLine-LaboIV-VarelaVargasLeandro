@@ -19,3 +19,36 @@ user-select: none;
 .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form) {
     border: solid 2px lightcoral;
 }
+
+.no-display {
+    display: none;
+}
+
+.full-screen {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+    background-color: white;
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.full-screen > .img {
+    width: 512px;
+    height: 512px;
+    cursor: pointer;
+}
+
+.full-screen > .img:hover {
+    background-color: rgba(0, 0, 0, .1);
+    box-sizing: border-box;
+    padding: 2rem;
+    border-radius: 10% 0 10% 0;
+}

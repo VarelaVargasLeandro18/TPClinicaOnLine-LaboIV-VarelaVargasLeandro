@@ -1,8 +1,12 @@
 <h4 class="mb-3">Registro</h4>
-<form [formGroup]="this.form" (ngSubmit)="this.onSubmit($event)">
+<form 
+    [formGroup]="this.form" 
+    [@openClose]=" this.mostrarFullScreen ? 'closed' : 'open' "  
+    [ngClass]="{ 'no-display': this.mostrarFullScreen }" 
+    (ngSubmit)="this.onSubmit($event)">
     <div class="row g-3">
 
-    <div *ngIf="this.isRequiredField('razon')" class="col-sm-6">
+    <!-- <div *ngIf="this.isRequiredField('razon')" class="col-sm-6">
         <label for="reason" class="form-label">Raz&oacute;n</label>
         <select formControlName="razon" class="form-select" id="reason" required>
             <option [value]=undefined disabled selected>Elige</option>
@@ -11,9 +15,9 @@
         <div *ngIf="this.form.controls.razon.errors?.required" class="text-danger">
         Este valor es requerido.
         </div>
-    </div>
+    </div> -->
 
-    <div *ngIf="this.isRequiredField('especialidad')" class="col-sm-6">
+    <div *ngIf="this.isRequiredField('especialidad')" class="col-12">
         <label for="speciality" class="form-label">Especialidad</label>
         <select formControlName="especialidad" class="form-select" id="speciality" required>
             <option [value]=undefined disabled selected>Elige</option>
@@ -158,3 +162,8 @@
     <button [disabled]="!(this.form.valid && this.habilitarBoton)" class="w-100 btn btn-primary btn-lg" type="submit">Registrarse</button>
 
 </form>
+
+<div *ngIf="this.mostrarFullScreen" class="full-screen">
+    <img (click)="this.elegirRazon('1')" class="img" src="/assets/Doctor.svg" alt="especialista">
+    <img (click)="this.elegirRazon('2')" class="img" src="/assets/Patient.svg" alt="paciente">
+</div>

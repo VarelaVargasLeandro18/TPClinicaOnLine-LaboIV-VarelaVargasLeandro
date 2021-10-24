@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Categoria } from 'src/app/models/categoria/categoria';
 import { Especialidad } from 'src/app/models/especialidad/especialidad';
 import { Usuario } from 'src/app/models/usuario/usuario';
@@ -11,7 +13,25 @@ import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.servi
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
+  animations: [
+    trigger('openClose', [
+
+      state('open', style({
+        opacity: 1
+      })),
+      state('closed', style({
+        opacity: 0
+      })),
+      transition('open => closed', [
+        animate('3s linear')
+      ]),
+      transition('closed => open', [
+        animate('3s linear')
+      ]),
+
+    ]),
+  ]
 })
 export class RegistroComponent implements OnInit {
   public readonly EDAD_MAXIMA = 120;
@@ -24,6 +44,7 @@ export class RegistroComponent implements OnInit {
   public mensajeRegistro : string = "";
   public mensajeErrorRegistro : string = "";
   public habilitarBoton : boolean = false;
+  public mostrarFullScreen : boolean = true;
 
   private imagenUnoUrl? : string = undefined;
   private imagenDosUrl? : string = undefined;
@@ -51,6 +72,11 @@ export class RegistroComponent implements OnInit {
       especialidadNueva: [null]
     });
     this.setValidatorsSegunEspecialidad();
+  }
+
+  elegirRazon ( razonId : string ) {
+    this.form.controls.razon.setValue( razonId );
+    this.mostrarFullScreen = false;
   }
 
   async ngOnInit() {

@@ -1,3 +1,7 @@
 .hover:hover {
     cursor: pointer;
 }
+
+.height-4 {
+    height: 4rem;
+}
