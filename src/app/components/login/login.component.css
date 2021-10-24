@@ -24,3 +24,15 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.left-bottom {
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+::ng-deep.mat-menu-panel {
+    max-width:fit-content !important;
+    max-height: 250px !important;
+    overflow-x: scroll;
+}

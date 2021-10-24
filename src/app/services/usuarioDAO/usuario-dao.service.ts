@@ -67,7 +67,7 @@ export class UsuarioDAOService implements OnInit {
     } catch (err) {
       this.usuarioService.errorRegistrar( "El mail ingresado no es válido!" );
       return
-    }   */  
+    } */   
     
     if ( usuarioLogeado != undefined ) {
       this.usuarioService.usuarioExistente('Este email se encuentra en uso.');
@@ -94,6 +94,24 @@ export class UsuarioDAOService implements OnInit {
     );
     
     this.db.collection('logs').add( {...log} );
+  }
+
+  async getAdmins() {
+    return await this.getUsuariosPorRazon("0");
+  }
+
+  async getEspecialistas() {
+    return await this.getUsuariosPorRazon("1");
+  }
+
+  async getPacientes() {
+    return await this.getUsuariosPorRazon("2");
+  }
+
+  private getUsuariosPorRazon( razon : string ) {
+    return this.db.collection( this.collectionUsr ).ref.where( 'razon', '==', razon )
+              .get()
+              .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) );
   }
 
 }

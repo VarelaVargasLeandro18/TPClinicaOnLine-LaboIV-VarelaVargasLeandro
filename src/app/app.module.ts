@@ -4,6 +4,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 //#endregion
 
+//#region 
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
+//#endregion
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,6 +23,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsuarioEnListaComponent } from './components/usuario-en-lista/usuario-en-lista.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +33,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     NavigationComponent,
     FooterComponent,
     RegistroComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    UsuarioEnListaComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +43,12 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

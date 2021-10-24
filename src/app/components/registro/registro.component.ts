@@ -17,6 +17,8 @@ export class RegistroComponent implements OnInit {
   public readonly EDAD_MAXIMA = 120;
   public readonly EDAD_MINIMA = 18;
 
+  public form : FormGroup;
+
   public categorias : Categoria[] = [];
   public especialidades : Especialidad[] = [];
   public mensajeRegistro : string = "";
@@ -26,7 +28,6 @@ export class RegistroComponent implements OnInit {
   private imagenUnoUrl? : string = undefined;
   private imagenDosUrl? : string = undefined;
 
-  public form : FormGroup;
 
   constructor(
     private categoriasService : CategoriasService,
@@ -160,8 +161,8 @@ export class RegistroComponent implements OnInit {
     if ( razon === "2" /* PACIENTE */ ) {
       usuario.obraSocial = obraSocial;
       usuario.imagenDosUrl = imagenDos;
-    }   
-
+    }
+    
     this.usuarioDAOService.register( usuario )
       .then( () => {
         this.mensajeRegistro = "USUARIO REGISTRADO!";
@@ -169,9 +170,9 @@ export class RegistroComponent implements OnInit {
       } )
       .catch( (error) => {this.mensajeErrorRegistro = "ERROR AL REGISTRAR USUARIO!"; console.error(error)} );
 
-    if ( especialidadNueva != "" || especialidadNueva != null || especialidadNueva != undefined ) {
+    if ( especialidadNueva != null ) {
       this.especialidadesService.agregarCategoria(especialidadNueva).then( () => console.log("Especialidad Agregada!!") );
-    } 
+    }
 
   }
 

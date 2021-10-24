@@ -11,6 +11,13 @@ import { UsuarioService } from 'src/app/services/usuarioService/usuario.service'
 })
 export class LoginComponent implements OnInit {
 
+  public mostrarUsuarios : boolean = false;
+  public usuariosCargados : boolean = false;
+
+  public admin : any;
+  public especialistas : any[] = [];
+  public pacientes : any[] = [];
+
   title: string = "Inicie Sesion";
 
   button_title: string = "Iniciar Sesion";
@@ -24,7 +31,7 @@ export class LoginComponent implements OnInit {
     private usuarioService : UsuarioService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     this.loginCuentaForm = new FormGroup({
       email: new FormControl(
@@ -42,6 +49,11 @@ export class LoginComponent implements OnInit {
         this.errorInicioDeSesion = mensaje;
       } );
 
+    
+    this.admin = (await this.usuario_backend_service.getAdmins())[0];
+    this.especialistas = (await this.usuario_backend_service.getEspecialistas()).slice(0, 2);
+    this.pacientes = (await this.usuario_backend_service.getPacientes()).slice(0, 3);
+    this.usuariosCargados = true;
   }
 
   onSubmit() {
@@ -59,11 +71,19 @@ export class LoginComponent implements OnInit {
     this.usuario_backend_service.login(usuario);
   }
 
-  iniciarSesionAutomaticamente() {
+  /* iniciarSesionAutomaticamente() {
     this.loginCuentaForm.patchValue({
       email: "admin@admin.com",
       password: "123456"
     });
+  } */
+
+  onSeleccionarParaInicioRapido ( usuario : any ) {
+    this.loginCuentaForm.patchValue({
+      email: usuario.email,
+      password: usuario.contrasenia
+    });
+    this.onSubmit();
   }
 
 }
