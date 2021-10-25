@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/services/usuarioService/usuario.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mi-perfil.component.css']
 })
 export class MiPerfilComponent implements OnInit {
+  public usuario : any;
 
-  constructor() { }
+  constructor(
+    private usuarioService : UsuarioService
+  ) { 
+    this.usuario = usuarioService.iniciado;
+  }
 
   ngOnInit(): void {
   }
+
+
 
 }

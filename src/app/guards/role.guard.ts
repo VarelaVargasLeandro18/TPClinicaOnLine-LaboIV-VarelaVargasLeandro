@@ -14,8 +14,7 @@ export class RoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    const razonesPermitidas = route.data?.razon;  
-    console.log(razonesPermitidas)
+    const razonesPermitidas = route.data?.razon;
 
     for ( const razon of razonesPermitidas ) {
 

@@ -1,1 +1,29 @@
-<p>mi-perfil works!</p>
+<div class="container">
+    <label class="form-label mb-1" for="nombre">
+        Nombre
+    </label>
+    <input class="form-control mb-1" disabled [value]="this.usuario.nombre" type="text" name="nombre" id="nombre">
+    
+    <label class="form-label" for="apellido">
+        Apellido
+    </label>
+    <input class="form-control mb-1" disabled [value]="this.usuario.apellido" type="text" name="apellido" id="apellido">
+    
+    <label class="form-label" for="email">
+        Email
+    </label>
+    <input class="form-control mb-1" disabled [value]="this.usuario.email" type="text" name="email" id="email">
+    
+    <label class="form-label" for="dni">
+        DNI
+    </label>
+    <input class="form-control mb-1" disabled [value]="this.usuario.dni" type="text" name="dni" id="dni">
+    
+    <hr>
+    <h2>Imagen/es de Perfil:</h2>
+    <div class="d-flex flex-column justify-content-between align-items-center">
+        <img [src]="this.usuario.imagenUnoUrl" [alt]="this.usuario.email" class="img-fluid">
+        <img *ngIf="this.usuario.imagenDosUrl" [src]="this.usuario.imagenDosUrl" [alt]="this.usuario.email" class="img-fluid">
+    </div>
+
+</div>
