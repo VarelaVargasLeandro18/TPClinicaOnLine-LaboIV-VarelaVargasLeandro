@@ -6,18 +6,21 @@ import { TurnoComponent } from './turno.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PacienteComponent } from './components/paciente/paciente.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
-
+import { TablaTurnosComponent } from './components/tabla-turnos/tabla-turnos.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TurnoComponent,
     AdminComponent,
     PacienteComponent,
-    EspecialistaComponent
+    EspecialistaComponent,
+    TablaTurnosComponent
   ],
   imports: [
     CommonModule,
-    TurnoRoutingModule
+    TurnoRoutingModule,
+    FormsModule
   ]
 })
 export class TurnoModule { }

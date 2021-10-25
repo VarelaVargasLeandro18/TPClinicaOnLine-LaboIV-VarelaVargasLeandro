@@ -5,3 +5,10 @@
 .height-4 {
     height: 4rem;
 }
+
+.icon {
+    --size: 5rem;
+
+    width: var(--size);
+    height: var(--size);
+}

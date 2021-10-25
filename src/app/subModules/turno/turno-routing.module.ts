@@ -7,10 +7,17 @@ import { EspecialistaComponent } from './components/especialista/especialista.co
 import { PacienteComponent } from './components/paciente/paciente.component';
 
 const routes: Routes = [
-  { path: 'admin', component: AdminComponent, data: { razon: "0" }, canActivate: [RoleGuard] },
+  { path: 'admin', component: AdminComponent, data: { razon: ["0"] }, canActivate: [RoleGuard] },
   { path: 'especialista', component: EspecialistaComponent, data: { razon: "1" }, canActivate: [RoleGuard] },
-  { path: 'paciente', component: PacienteComponent, data: { razon: "2" }, canActivate: [RoleGuard] },
-  { path: '**', canActivate: [RedirectByRoleGuard], data: { redirects: [ { razon: "0", route: "admin" }, { razon: "1", route: "especialista" }, { razon: "2", route: "paciente" } ] } },
+  { path: 'paciente', component: PacienteComponent, data: { razon: ["2"] }, canActivate: [RoleGuard] },
+  { path: '**', 
+    canActivate: [RedirectByRoleGuard], 
+    data: { 
+            redirects: [ 
+              { razon: "0", route: "misTurnos/admin" }, 
+              { razon: "1", route: "misTurnos/especialista" }, 
+              { razon: "2", route: "misTurnos/paciente" } ] 
+    } }
 ];
 
 @NgModule({

@@ -1,12 +1,17 @@
 <header class="site-header text-center height-4">
-    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+    <nav class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
       <a class="py-2" routerLink="home" aria-label="Home">
         <img class="img-thumbnail img-fluid p-0" width="25px" src="/assets/clinica.png" alt="Home">
       </a>
-      <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="log-in">Iniciar Sesión</a>
-      <a *ngIf="!usuario" class="nav-link rounded border border-black" routerLink="sign-up">Crear cuenta</a>
-      <a *ngIf="usuario?.razon === '0'" class="nav-link rounded border border-black" routerLink="users">Usuarios</a>
-      <a *ngIf="usuario" class="nav-link rounded border border-black" routerLink="misTurnos">Mi Turno</a>
-      <a (click)="this.onLogOut()" *ngIf="usuario" class="nav-link rounded border border-black hover"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
+      <a *ngIf="!this.usuario" class="nav-link rounded border border-black" routerLink="log-in">Iniciar Sesión</a>
+      <a *ngIf="!this.usuario" class="nav-link rounded border border-black" routerLink="sign-up">Crear cuenta</a>
+      <a *ngIf="this.usuario?.razon === '0'" class="nav-link rounded border border-black" routerLink="users">Usuarios</a>
+      <a *ngIf="this.usuario" class="nav-link rounded border border-black" routerLink="misTurnos">Mi Turno</a>
+      <a *ngIf="this.usuario && (this.usuario.razon == '0' || this.usuario.razon == '2') " class="nav-link rounded border border-black" routerLink="solicitarTurno">Solicitar Turno</a>
+      <a (click)="this.onLogOut()" *ngIf="this.usuario" class="nav-link rounded border border-black hover"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
+      <a *ngIf="this.usuario" routerLink="miPerfil">
+        <i *ngIf="this.usuario.razon != '1'" class="far fa-2x fa-user"></i>
+        <i *ngIf="this.usuario.razon == '1'" class="fas fa-2x fa-user-md"></i>
+      </a>
     </nav>
 </header>

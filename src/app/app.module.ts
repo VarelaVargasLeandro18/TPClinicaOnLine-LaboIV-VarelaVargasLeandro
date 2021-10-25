@@ -25,6 +25,8 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsuarioEnListaComponent } from './components/usuario-en-lista/usuario-en-lista.component';
+import { SolicitarTurnoComponent } from './components/solicitar-turno/solicitar-turno.component';
+import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { UsuarioEnListaComponent } from './components/usuario-en-lista/usuario-e
     FooterComponent,
     RegistroComponent,
     UsuariosComponent,
-    UsuarioEnListaComponent
+    UsuarioEnListaComponent,
+    SolicitarTurnoComponent,
+    MiPerfilComponent
   ],
   imports: [
     BrowserModule,

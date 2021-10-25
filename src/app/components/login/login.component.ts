@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       ),
       password: new FormControl(
         '',
-        [Validators.required, Validators.maxLength(10), Validators.minLength(5)]
+        [Validators.required, Validators.maxLength(15), Validators.minLength(5)]
       )
     });
 

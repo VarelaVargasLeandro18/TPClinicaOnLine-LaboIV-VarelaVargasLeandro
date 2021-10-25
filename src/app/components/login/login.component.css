@@ -36,3 +36,9 @@
     max-height: 250px !important;
     overflow-x: scroll;
 }
+
+.carga-img {
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+}

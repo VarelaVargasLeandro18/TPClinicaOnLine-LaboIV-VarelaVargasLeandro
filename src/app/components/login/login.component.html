@@ -8,7 +8,7 @@
           <input formControlName="email" type="email" class="form-control" id="floatingInput" placeholder="usuario123">
           <label for="floatingInput">Email</label>
           <small
-              [hidden]= "loginCuentaForm.controls['email'].valid"
+              *ngIf= "loginCuentaForm.controls['email'].valid"
               class="form-text text-danger text-uppercase">
               Ingrese un email valido.
           </small>
@@ -17,9 +17,14 @@
           <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="pass123">
           <label for="floatingPassword">Contrasenia</label>
           <small
-              [hidden]= "loginCuentaForm.controls['password'].valid"
+              *ngIf= "loginCuentaForm.controls.password.errors?.minlength"
               class="form-text text-danger text-uppercase">
               Ingrese al menos 5 caracteres.
+          </small>
+          <small
+              *ngIf= "loginCuentaForm.controls.password.errors?.maxlength"
+              class="form-text text-danger text-uppercase">
+              No ingrese m&aacute;s de 15 caracteres.
           </small>
         </div>
         
@@ -39,29 +44,33 @@
   </main>
 </div>
 
-<div *ngIf="this.usuariosCargados">
-  <button class="left-bottom" [matMenuTriggerFor]="usuariosMenu" mat-fab color="warn" aria-label="Ver usuarios de inicio rapido">
-    <mat-icon>filter_list</mat-icon>
-  </button>
-  <mat-menu class="px-2 w-100" #usuariosMenu="matMenu" yPosition="above" xPosition="after">
+<div id="seleccion-usuario-container">
+  <div id="seleccion-usuario-carga" *ngIf="!this.usuariosCargados">
+    <img class="carga-img" src="/assets/spinner-loading.svg" alt="Cargando Lista de Usuarios">
+  </div>
+  <div id="opciones-seleccion-usuario" *ngIf="this.usuariosCargados">
+    <button class="left-bottom" [matMenuTriggerFor]="usuariosMenu" mat-fab color="warn" aria-label="Ver usuarios de inicio rapido">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+
+    <mat-menu class="px-2 w-100" #usuariosMenu="matMenu" yPosition="above" xPosition="after">
     
-    <h3 mat-subheader>Administradores</h3>
-    <app-usuario-en-lista 
-    [usuario]="this.admin"
-    (seleccionado)="this.onSeleccionarParaInicioRapido($event)"></app-usuario-en-lista>
-    <mat-divider></mat-divider>
-
-    <h3 mat-subheader>Especialistas</h3>
-    <app-usuario-en-lista 
-      *ngFor="let usuario of this.especialistas" 
-      [usuario]="usuario"
+      <h3 mat-subheader>Administradores</h3>
+      <app-usuario-en-lista
+      [usuario]="this.admin"
       (seleccionado)="this.onSeleccionarParaInicioRapido($event)"></app-usuario-en-lista>
-    <mat-divider></mat-divider>
-
-    <h3 mat-subheader>Pacientes</h3>
-    <app-usuario-en-lista 
-      *ngFor="let usuario of this.pacientes" 
-      [usuario]="usuario" 
-      (seleccionado)="this.onSeleccionarParaInicioRapido($event)" ></app-usuario-en-lista>
-  </mat-menu>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Especialistas</h3>
+      <app-usuario-en-lista
+        *ngFor="let usuario of this.especialistas"
+        [usuario]="usuario"
+        (seleccionado)="this.onSeleccionarParaInicioRapido($event)"></app-usuario-en-lista>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Pacientes</h3>
+      <app-usuario-en-lista
+        *ngFor="let usuario of this.pacientes"
+        [usuario]="usuario"
+        (seleccionado)="this.onSeleccionarParaInicioRapido($event)" ></app-usuario-en-lista>
+    </mat-menu>
+  </div>
 </div>
