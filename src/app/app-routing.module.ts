@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'sign-up', component: RegistroComponent},
   { path: 'users', component: UsuariosComponent, canActivate: [AdministradorGuard] },
   { path: 'misTurnos', loadChildren: () => import('./subModules/turno/turno.module').then(m => m.TurnoModule) },
-  { path: 'solicitarTurno', component: SolicitarTurnoComponent },
+  { path: 'solicitarTurno', component: SolicitarTurnoComponent, canActivate: [RoleGuard], data: { razon: [ '0', '2' ] } },
   { path: 'miPerfil', component: MiPerfilComponent, canActivate: [RoleGuard], data: { razon: [ '0', '1', '2' ] } },
   { path: '**', pathMatch: 'full', redirectTo:'/' }
 ];

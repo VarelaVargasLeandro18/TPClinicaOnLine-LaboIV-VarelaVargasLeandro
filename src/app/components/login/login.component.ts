@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     usuario.email = email;
     usuario.contrasenia = contrasenia;
 
-    this.usuario_backend_service.login(usuario);
+    if ( !this.usuario_backend_service.login(usuario) ) this.errorInicioDeSesion = "NO SE HA APROBADO SU PERFIL!";
   }
 
   /* iniciarSesionAutomaticamente() {

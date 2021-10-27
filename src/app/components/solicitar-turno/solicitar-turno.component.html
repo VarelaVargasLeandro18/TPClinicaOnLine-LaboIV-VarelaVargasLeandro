@@ -1,1 +1,62 @@
-<p>solicitar-turno works!</p>
+<form
+    [formGroup]="this.form"
+    (ngSubmit)="this.onSubmit($event)">
+    
+    <label for="speciality" class="form-label">Especialidad</label>
+    <select formControlName="especialidad" class="form-select" id="speciality" required>
+        <option [value]=undefined disabled selected>Elige</option>
+        <option *ngFor="let especialidad of this.especialidades" [value]="especialidad.id">{{especialidad.tipo}}</option>
+    </select>
+    <div *ngIf="this.form.controls.especialidad.errors?.required" class="text-danger">
+    Este valor es requerido.
+    </div>
+
+    <div style="margin-top: 1rem;" *ngIf="this.especialistas.length != 0">
+        <label for="specialist" class="form-label">Especialista</label>
+        <select formControlName="especialista" class="form-select" id="specialist" required>
+            <option [value]=undefined disabled selected>Elige</option>
+            <option *ngFor="let especialista of this.especialistas; let i = index" [value]="i">{{especialista.nombre + " " + especialista.apellido}}</option>
+        </select>
+        <div *ngIf="this.form.controls.especialista.errors?.required" class="text-danger">
+        Este valor es requerido.
+        </div>
+    </div>
+
+    <div *ngIf="this.especialista">
+        <label for="date" class="form-label">Fecha</label>
+        <input 
+            formControlName="fecha" 
+            type="datetime-local" 
+            class="form-control" 
+            id="date" 
+            placeholder="dd/mm/yyyy hh:mm:ss"
+            [max]="this.FECHA_MAX"
+            [min]="this.FECHA_MIN"
+        >
+        <div *ngIf="this.form.controls.fecha.errors?.required" class="text-danger">
+        Este valor es requerido.
+        </div>
+    </div>
+    <div *ngIf="!this.especialista" class="text-danger">
+    Para elegir una fecha debe elegir un especialista.
+    </div>
+
+    <div style="margin-top: 1rem;" *ngIf="this.isRequiredField('paciente')" class="col-12">
+        <label for="patient" class="form-label">Paciente</label>
+        <select formControlName="paciente" class="form-select" id="specialist" required>
+            <option [value]=undefined disabled selected>Elige</option>
+            <option *ngFor="let paciente of this.pacientes" [value]="paciente.email">{{paciente.nombre + " " + paciente.apellido}}</option>
+        </select>
+        <div *ngIf="this.form.controls.paciente.errors?.required" class="text-danger">
+        Este valor es requerido.
+        </div>
+    </div>
+
+    <div class="w-100 text-center mt-1">
+        <button [disabled]="!this.form.valid" class="btn btn-lg btn-success mx-auto" type="submit">Pedir Turno</button>
+    </div>
+    <div class="text-danger">
+        {{this.mensaje}}
+    </div>
+
+</form>

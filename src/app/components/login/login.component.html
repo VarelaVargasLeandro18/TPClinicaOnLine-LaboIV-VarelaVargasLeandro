@@ -8,7 +8,7 @@
           <input formControlName="email" type="email" class="form-control" id="floatingInput" placeholder="usuario123">
           <label for="floatingInput">Email</label>
           <small
-              *ngIf= "loginCuentaForm.controls['email'].valid"
+              *ngIf= "!loginCuentaForm.controls['email'].valid"
               class="form-text text-danger text-uppercase">
               Ingrese un email valido.
           </small>

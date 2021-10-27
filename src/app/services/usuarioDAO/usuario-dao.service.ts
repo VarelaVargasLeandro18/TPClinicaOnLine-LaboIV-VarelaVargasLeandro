@@ -41,9 +41,14 @@ export class UsuarioDAOService implements OnInit {
     }
 
     const usuarioDB = usuarioSnapshot.data() as Usuario;
+
+    if ( usuarioDB.aprobado != undefined && !usuarioDB.aprobado ) return false;
+    if ( usuarioDB.contrasenia != usuario.contrasenia ) return false;
+
     usuarioDB.email = usuario.email;
     this.usuarioService.iniciarSesion( usuarioDB );
     this.logger( usuarioDB.email, 'Inicio de Sesion' );
+    return true;
   }
 
   async checkIfExist ( usuario : Usuario ) {
@@ -107,6 +112,19 @@ export class UsuarioDAOService implements OnInit {
   async getPacientes() {
     return await this.getUsuariosPorRazon("2");
   }
+
+  getEspecialistasPorEspecialidad( especialidad : string ) {
+    return this.db.collection( this.collectionUsr ).ref.where( "especialidad", "==", especialidad )
+              .get()
+              .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) );
+  }
+
+  getUsuario ( email : string ) {
+    return this.db.collection( this.collectionUsr ).doc( email )
+              .get()
+              .toPromise()
+              .then( snapshot => snapshot.data() );
+  }  
 
   private getUsuariosPorRazon( razon : string ) {
     return this.db.collection( this.collectionUsr ).ref.where( 'razon', '==', razon )
