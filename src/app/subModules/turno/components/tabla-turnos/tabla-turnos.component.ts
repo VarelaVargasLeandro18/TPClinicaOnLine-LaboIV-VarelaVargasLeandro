@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario/usuario';
+import { TurnoService } from 'src/app/services/turnoService/turno.service';
+import { UsuarioService } from 'src/app/services/usuarioService/usuario.service';
 
 @Component({
   selector: 'app-tabla-turnos',
@@ -7,13 +10,37 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TablaTurnosComponent implements OnInit {
   @Input() public turnos : any[] = [];
-  @Input() public filtro? : string;
-  @Input() public filtroValor? : string;
+  public iniciado? : Usuario;
 
-  constructor() { }
+  public texto : string = "";
+
+  constructor(
+    private turnoService : TurnoService,
+    private usuarioService : UsuarioService
+  ) {
+    this.iniciado = this.usuarioService.iniciado;
+  }
 
   ngOnInit(): void {
-    console.log("EEE")
+  }
+
+  actualizarTurno ( turno : any, target : any, atributo : any ) {
+    turno[atributo] = target.value;
+    this.turnoService.actualizarTurno( turno );
+  }
+
+  actualizarTurnoValor ( turno : any, valor : any, atributo : any ) {
+    turno[atributo] = valor;
+    this.turnoService.actualizarTurno( turno );
+  }
+
+  actualizarTurnoChecked ( turno : any, target : any, atributo : any ) {
+    turno[atributo] = target.checked;
+    this.turnoService.actualizarTurno( turno );
+  }
+
+  mostrarTexto ( texto : string ) {
+    this.texto = texto;
   }
 
 }

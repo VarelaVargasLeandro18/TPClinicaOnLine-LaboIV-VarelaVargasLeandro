@@ -6,7 +6,6 @@ import { Turno } from 'src/app/models/turno/turno';
   providedIn: 'root'
 })
 export class TurnoService {
-
   private collection : string = "turnos";
 
   constructor(
@@ -15,6 +14,10 @@ export class TurnoService {
 
   addTurno ( turno : Turno ) {
     return this.db.collection( this.collection ).add( {...turno} );
+  }
+
+  actualizarTurno ( turno : any ) {
+    return this.db.collection( this.collection ).doc( turno.id ).update ( {...turno} );
   }
 
   async averiguarSiHayTurnoEnHorario ( especialista : string, fecha : string ) {
@@ -37,19 +40,35 @@ export class TurnoService {
   }
 
   getTodosLosTurnos () {
-    return this.db.collection( this.collection ).get();
+    return this.db.collection( this.collection )
+            .get()
+            .toPromise()
+            .then( (querySnapshot) => querySnapshot.docs )
+            .then( (docs) => docs.map( (doc) => {
+              const ret : any = doc.data();
+              ret.id = doc.id;
+              return ret;
+            } ) );
   }
 
-  getTurnosByPaciente ( paciente : string ) {
+  getTurnosByPaciente ( paciente? : string ) {
     return this.db.collection( this.collection ).ref.where( "paciente", "==", paciente )
             .get()
-            .then( snapshots => snapshots.docs.map( doc => doc.data() ) ) 
+            .then( snapshots => snapshots.docs.map( doc => {
+              const ret : any = doc.data();
+              ret.id = doc.id;
+              return ret;
+            } ) ); 
   }
 
-  getTurnosByEspecialista ( especialista : string ) {
+  getTurnosByEspecialista ( especialista? : string ) {
     return this.db.collection( this.collection ).ref.where( "especialista", "==", especialista )
             .get()
-            .then( snapshots => snapshots.docs.map( doc => doc.data() ) )
+            .then( snapshots => snapshots.docs.map( doc => {
+              const ret : any = doc.data();
+              ret.id = doc.id;
+              return ret;
+            } ) );
   }
 
 }

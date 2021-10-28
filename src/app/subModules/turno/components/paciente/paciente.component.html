@@ -1,1 +1,6 @@
-<p>paciente works!</p>
+<div class="d-flex flex-column align-items-between">
+    <app-filtro-especialista
+        (especialista)="this.elegidoEspecialista($event)" >
+    </app-filtro-especialista>
+    <app-tabla-turnos [turnos]="this.turnos"></app-tabla-turnos>
+</div>

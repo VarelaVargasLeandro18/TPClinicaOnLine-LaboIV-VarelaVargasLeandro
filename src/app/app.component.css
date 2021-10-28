@@ -4,12 +4,6 @@ body {
     margin: 0;
 }
 
-/* .container {
-    display: grid;
-    place-items: center;
-    height: 100%;
-} */
-
 main {
     min-height: 80vh;
     height: auto !important;

@@ -7,7 +7,11 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PacienteComponent } from './components/paciente/paciente.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { TablaTurnosComponent } from './components/tabla-turnos/tabla-turnos.component';
+import { FiltroEspecialistaComponent } from './components/filtro-especialista/filtro-especialista.component';
+
+
 import { FormsModule } from '@angular/forms';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -15,12 +19,14 @@ import { FormsModule } from '@angular/forms';
     AdminComponent,
     PacienteComponent,
     EspecialistaComponent,
-    TablaTurnosComponent
+    TablaTurnosComponent,
+    FiltroEspecialistaComponent
   ],
   imports: [
     CommonModule,
     TurnoRoutingModule,
-    FormsModule
+    FormsModule,
+    MatSliderModule
   ]
 })
 export class TurnoModule { }

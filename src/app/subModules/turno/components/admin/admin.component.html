@@ -1,11 +1,6 @@
-<p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3><p>admin works!</p>
-<h3>HOLHOLHOHLOHLH</h3>
+<div class="d-flex flex-column align-items-between">
+    <app-filtro-especialista
+        (especialista)="this.elegidoEspecialista($event)" >
+    </app-filtro-especialista>
+    <app-tabla-turnos [turnos]="this.turnos"></app-tabla-turnos>
+</div>
