@@ -38,6 +38,7 @@ export class RegistroComponent implements OnInit {
   public readonly EDAD_MINIMA = 18;
 
   public form : FormGroup;
+  public token? : string = undefined;
 
   public categorias : Categoria[] = [];
   public especialidades : Especialidad[] = [];
@@ -69,9 +70,13 @@ export class RegistroComponent implements OnInit {
       contrasenia: [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9]+$/i), Validators.minLength(6)]],
       imagenUno: [null, [Validators.required]],
       imagenDos: [null, [Validators.required]],
-      especialidadNueva: [null]
+      especialidadNueva: [null],
+      captcha: [null, [Validators.required]]
     });
     this.setValidatorsSegunEspecialidad();
+    this.form.controls.captcha.valueChanges.subscribe( (token) => {
+      this.token = token
+    } );
   }
 
   elegirRazon ( razonId : string ) {
@@ -192,7 +197,10 @@ export class RegistroComponent implements OnInit {
     this.usuarioDAOService.register( usuario )
       .then( () => {
         this.mensajeRegistro = "USUARIO REGISTRADO!";
-        this.usuarioDAOService.login( usuario );
+        if ( !this.usuarioDAOService.login( usuario ) ) {
+          this.mensajeRegistro = "USUARIO REGISTRADO, NO SE PUEDE INICIAR SESIÓN HASTA QUE ESTÉ APROBADO.";
+          this.form.reset();
+        }
       } )
       .catch( (error) => {this.mensajeErrorRegistro = "ERROR AL REGISTRAR USUARIO!"; console.error(error)} );
 

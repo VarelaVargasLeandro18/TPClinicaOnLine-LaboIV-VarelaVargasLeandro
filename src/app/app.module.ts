@@ -11,6 +11,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 //#endregion
 
+//#region CAPTCHA
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
+//#endregion
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -36,6 +40,11 @@ const material = [
   MatDividerModule
 ];
 
+const captcha = [
+  RecaptchaModule,
+  RecaptchaFormsModule
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,9 +65,17 @@ const material = [
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-    ...material
+    ...material,
+    ...captcha
   ],
-  providers: [],
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
