@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
 //#endregion
 
 //#region CAPTCHA
@@ -37,7 +38,8 @@ const material = [
   MatButtonModule,
   MatIconModule,
   MatMenuModule,
-  MatDividerModule
+  MatDividerModule,
+  MatSelectModule
 ];
 
 const captcha = [

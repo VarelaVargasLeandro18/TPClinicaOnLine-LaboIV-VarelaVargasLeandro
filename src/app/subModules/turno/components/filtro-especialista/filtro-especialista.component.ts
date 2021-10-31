@@ -28,8 +28,8 @@ export class FiltroEspecialistaComponent implements OnInit {
     this.traerEspecialistas( especialidad );
   }
 
-  elegirEspecialista( email : string ) {
-    this.especialista.emit( email );
+  elegirEspecialista( especialista : any ) {
+    this.especialista.emit( especialista.email );
   }
 
   private async traerEspecialistas ( especialidad? : string ) {

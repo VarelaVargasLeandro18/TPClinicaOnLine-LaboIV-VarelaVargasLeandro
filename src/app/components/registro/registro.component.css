@@ -25,9 +25,8 @@ user-select: none;
 }
 
 .full-screen {
-    position: absolute;
-    top: 4rem;
-    left: 0;
+    display: absolute;
+    top: 0;
 
     height: 100%;
     width: 100%;
@@ -35,20 +34,21 @@ user-select: none;
 
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
+    align-items: space-between;    
 }
 
 .full-screen > .img {
-    width: 512px;
-    height: 512px;
+    width: 256px;
+    height: 256px;
+    padding: 1rem;
     cursor: pointer;
+    margin: auto;
 }
 
 .full-screen > .img:hover {
     background-color: rgba(0, 0, 0, .1);
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 10% 0 10% 0;
 }

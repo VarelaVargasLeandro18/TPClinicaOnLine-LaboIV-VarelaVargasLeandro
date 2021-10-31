@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Especialidad } from 'src/app/models/especialidad/especialidad';
 import { Turno } from 'src/app/models/turno/turno';
+import { Usuario } from 'src/app/models/usuario/usuario';
 import { EspecialidadService } from 'src/app/services/especialidadService/especialidad.service';
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
 import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.service';
@@ -13,123 +13,155 @@ import { UsuarioService } from 'src/app/services/usuarioService/usuario.service'
   styleUrls: ['./solicitar-turno.component.css']
 })
 export class SolicitarTurnoComponent implements OnInit {
-  public FECHA_MIN : string = "";
-  public FECHA_MAX : string = "";
-  public mensaje : string = "";
-
-  private iniciado? : any;
-
-  public form : FormGroup;
-
-  public especialistas : any[] = [];
-  public especialidades : any[] = [];
+  public iniciado? : Usuario;
   public pacientes : any[] = [];
+  public paciente? : Usuario;
 
-  public especialista : any = undefined;
+  public dia : string = "";
+  public horario : string = "";
+
+  public especialista : any;
+  public especialidades : Especialidad[] = [];
+  public especialistas : any[] = [];
+  public dias : string[] = [];
+  public horarios : string[] = [];
 
   constructor(
-    private formBuilder : FormBuilder,
     private especialidadService : EspecialidadService,
     private usuarioDAOService : UsuarioDAOService,
     private usuarioService : UsuarioService,
-    private turnoService : TurnoService,
-    private router : Router
+    private turnoService : TurnoService
   ) {
-    this.form = this.formBuilder.group({
-      especialidad: [null, [Validators.required]],
-      especialista: [null, [Validators.required]],
-      fecha: [null, [Validators.required]],
-      paciente: [null]
-    });
     this.iniciado = this.usuarioService.iniciado;
-
-    const fechaMinStrAux = (new Date()).toISOString();
-    this.FECHA_MIN = fechaMinStrAux.substring( 0, fechaMinStrAux.lastIndexOf(':') );
-    
-    const fechaMaxAux = new Date();
-    fechaMaxAux.setFullYear( fechaMaxAux.getFullYear() + 1 );
-    const fechaMaxStrAux = fechaMaxAux.toISOString();
-    this.FECHA_MAX = fechaMaxStrAux.substring( 0, fechaMaxStrAux.lastIndexOf(':') );
   }
 
   async ngOnInit() {
     this.especialidades = await this.especialidadService.getCategorias();
-    this.form.controls.especialidad.valueChanges.subscribe( 
-      async (value) => this.especialistas = await this.usuarioDAOService.getEspecialistasPorEspecialidad( value )
-    );
 
-    this.form.controls.especialista.valueChanges.subscribe(
-      async (value) => this.especialista = this.especialistas[value]
-    );
-        
-    if ( this.iniciado.razon === "0" ) {
-      this.form.controls.paciente.setValidators( [Validators.required] );
+    if ( this.iniciado?.razon === "0" ){
       this.pacientes = await this.usuarioDAOService.getPacientes();
-    }
-  }
-
-  async onSubmit( event : any ) {
-    this.mensaje = "";
-    const fecha = this.form.controls.fecha.value;
-    const especialidad = this.form.controls.especialidad.value;
-    const especialista = this.especialista.email;
-    const paciente = this.form.controls.paciente.value || this.iniciado.email;
-
-    if ( !this.determinarHorarioCorrecto( fecha, this.especialista.horarioMax, this.especialista.horarioMin ) ) {
-      this.mensaje = "Elija un horario entre las " + especialista.horarioMin + " y las " + especialista.horarioMax;
-      return 
-    }
-
-    if ( !( await this.chequearTurno( fecha ) ) ) {
-      this.mensaje = "Lo sentimos, ese turno no está disponible.";
       return
     }
 
-    const turno = new Turno();
-    turno.paciente = paciente;
-    turno.especialista = especialista;
-    turno.especialidad = especialidad;
-    turno.fecha = fecha;
-
-    this.turnoService.addTurno( turno )
-      .then( () => this.router.navigateByUrl("/misTurnos") )
-      .catch ( (error) => {
-        this.mensaje = "Lo sentimos, se ha producido un error!";
-        console.error( error );
-      } );
+    this.paciente = this.iniciado;
   }
 
-  private determinarHorarioCorrecto ( fecha : string, horarioMaxEspecialista : string, horarioMinEspecialista : string ) : boolean {
-    const horarioFechaStr = fecha.substring( fecha.indexOf( 'T' ) + 1 );
-    const regexTime = /([0-9]?[0-9]):([0-9][0-9])/;
+  elegirEspecialidad( especialidad? : string ) {
+    this.horario = "";
+    this.dias = [];
+    this.dia = "";
+    this.especialista = undefined;
 
-    const horarioFecha = this.convertirATime( regexTime.exec( horarioFechaStr ) );
-    const horarioMax = this.convertirATime( regexTime.exec( horarioMaxEspecialista ) );
-    const horarioMin = this.convertirATime( regexTime.exec( horarioMinEspecialista ) );
-
-    return horarioFecha >= horarioMin && horarioFecha <= horarioMax;
+    this.traerEspecialistas( especialidad );
   }
 
-  private async chequearTurno ( fecha : string ) {
-    const turnos = await this.turnoService.averiguarSiHayTurnoEnHorario( this.especialista.email, fecha );
+  elegirEspecialista( especialista : any ) {
+    this.horario = "";
+    this.dias = []
+    this.dia = "";
+    this.especialista = especialista;
     
-    return turnos === undefined || turnos[0] == undefined;
-  }
+    const currentDate = new Date();
+    let dias = this.filterDays( this.getWeekdaysInMonth( currentDate.getMonth(), currentDate.getFullYear() ) );
+    this.dias = this.estilizarDias( dias );
 
-  private convertirATime ( horaMinSecArr : any ) {
-    let hr = parseInt(horaMinSecArr[1]) * 3600 * 1000;
-    let min = parseInt(horaMinSecArr[2]) * 60 * 1000;
-    return hr + min;
-  }
-
-  isRequiredField(field: string) {
-    const form_field = this.form.get(field);
-    if (form_field === null || form_field === undefined || !form_field.validator) {
-        return false;
+    if ( this.dias.length === 0 ) {
+      this.dias.push ( "01-11-2021" );
     }
 
-    const validator = form_field.validator({} as AbstractControl);
-    return (validator && validator.required);
+  }
+
+  elegirDia ( dia : string ) {
+    this.dia = dia;
+    this.horario = "";
+    this.obtenerHorarios( this.especialista.horarioMin, this.especialista.horarioMax );
+    
+  }
+
+  elegirHorario ( horario : string ) {
+    this.horario = this.dia + "T" + horario;
+  }
+
+  solicitarTurno() {
+    const turno = new Turno();
+    turno.paciente = this.paciente?.email;
+    turno.especialidad = this.especialista.especialidad;
+    turno.especialista = this.especialista.email;
+    turno.fecha = this.horario;
+  }
+
+  private async traerEspecialistas ( especialidad? : string ) {
+    if ( !especialidad ) return
+
+    this.especialistas = await this.usuarioDAOService.getEspecialistasPorEspecialidad( especialidad );
+  }
+
+  public async chequearDisponibilidadFecha ( fecha : string ) {
+    console.log( fecha );
+    
+    return true//( await this.turnoService.averiguarSiHayTurnoEnHorario( this.especialista.email, fecha ) )?.length === 0;
+  }
+
+  private estilizarDias ( days : number[] ) : string[] {
+    const currentDate = new Date();
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear();
+    return days.map( (day) => year + "-" + (month + 1) + day);
+  }
+
+  private filterDays( days : number[] ) : number[] {
+    const currentDay = (new Date()).getDate();
+    return days.filter( (number) => number > currentDay);
+  }
+
+  private getWeekdaysInMonth(month : number, year : number) : number[] {
+    let days = this.daysInMonth(month, year);
+    const weekdays = [];
+    for(var i=0; i< days; i++) {
+        if (this.isWeekday(year, month, i+1)) weekdays.push( i+1 );
+    }
+    return weekdays;
+  }
+
+  private daysInMonth(iMonth : number, iYear : number) {
+    return 32 - new Date(iYear, iMonth, 32).getDate();
+  }
+
+  private isWeekday(year : number, month : number, day : number) {
+    let onlyDay = new Date(year, month, day).getDay();
+    return onlyDay !=0 && onlyDay !=6;
+  }
+
+  private async obtenerHorarios ( horarioMin : string, horarioMax : string ) {
+    const horarioMinSplitted = horarioMin.split(':');
+    const horarioMaxSplitted = horarioMax.split(':');
+
+    let hora = parseInt( horarioMinSplitted[0] );
+    let minuto = parseInt( horarioMinSplitted[1] );
+
+    const horaMax = parseInt( horarioMaxSplitted[0] );
+    const minutoMax = parseInt( horarioMaxSplitted[1] );
+
+    while( hora <= horaMax ) {
+      if ( hora === horaMax && minuto >= minutoMax ) break;
+      const horario = ( (hora < 10) ? '0' + hora : hora ) + ":" + ( (minuto == 0) ? '00' : minuto );
+      this.horarios.push( horario );
+      
+      if ( minuto === 30 ){
+        hora++;
+        minuto = 0;
+        continue;
+      }
+
+      if ( minuto === 0 ) 
+        minuto = 30;
+    } 
+  }
+
+  private combinarDiaYHorarios ( dia : string ) {
+    const fechas = [];
+
+    return this.horarios.map( (horario) => dia + 'T' + horario );
   }
 
 }

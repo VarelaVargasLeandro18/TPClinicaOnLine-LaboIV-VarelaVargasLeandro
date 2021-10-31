@@ -1,9 +1,9 @@
-<h4 class="mb-3">Registro</h4>
 <form 
     [formGroup]="this.form" 
     [@openClose]=" this.mostrarFullScreen ? 'closed' : 'open' "  
     [ngClass]="{ 'no-display': this.mostrarFullScreen }" 
     (ngSubmit)="this.onSubmit($event)">
+    <h2 class="mb-3">Registro</h2>
     <div class="row g-3">
 
         <!-- <div *ngIf="this.isRequiredField('razon')" class="col-sm-6">

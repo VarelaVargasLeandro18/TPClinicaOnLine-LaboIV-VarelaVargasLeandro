@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let turno of this.turnos">
+            <tr *ngFor="let turno of this.turnos; let i = index">
                 <td class="text-center">{{ turno.fecha | date: 'dd/MM/yyyy hh:mm a'  }}</td>
                 <td class="text-center">{{ turno.motivo }}</td>
                 <td class="text-center">{{ turno.especialidad }}</td>
@@ -29,10 +29,18 @@
                     </select>
                     <span *ngIf="turno.estado">{{ turno.estado }}</span>
                 </td>
-                <td class="text-center">{{ turno.encuesta }}</td>
                 <td class="text-center">
-                    <button (click)="this.mostrarTexto( turno.resenia )" *ngIf="turno.resenia" >
-                        Ver Rese&ntilde;a
+                    <button 
+                        *ngIf="(this.iniciado?.razon === '2' && turno.finalizado) || this.iniciado?.razon === '1' || this.iniciado?.razon === '0'"
+                        (click)="this.prepararEncuesta( i )" 
+                        type="button" class="btn btn-primary" 
+                        data-bs-toggle="modal" data-bs-target="#textModal">
+                        Encuesta
+                    </button>
+                </td>
+                <td class="text-center">
+                    <button (click)="this.prepararResenya( i )" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#textModal">
+                        Ver rese&ntilde;a
                     </button>
                 </td>
                 <td class="text-center">
@@ -47,14 +55,15 @@
                         (valueChange)="this.actualizarTurnoValor( turno, $event, 'califacion' )"></mat-slider>
                     <span *ngIf="this.iniciado?.razon != '2'">{{turno.califacion}}</span>
                 </td>
-                <td class="text-center">{{ turno.reseniaCancelado }}</td>
+                <td class="text-center">
+                    <button *ngIf="turno.cancelado" class="btn btn-primary btn-sm">Rese&ntilde;a</button>
+                </td>
                 <td class="text-center">
                     <label for="cancelado">
                         Cancelado:
                         <input 
                             [(ngModel)]="turno.cancelado"
                             (click)="this.actualizarTurnoChecked(turno, $event.target, 'cancelado')"
-                            [disabled]="this.iniciado?.razon === '2'"
                             type="checkbox" 
                             name="cancelado" 
                             id="cancelado">
@@ -75,9 +84,49 @@
             </tr>
         </tbody>
     </table>
-
-    <div class="text-center w-100">
-        <p>{{this.texto}}</p>
-    </div>
+      
+      <!-- Modal -->
+      <div 
+        class="modal fade" 
+        id="textModal" 
+        tabindex="-1" 
+        aria-labelledby="textModalLabel" 
+        aria-hidden="true"
+        data-bs-backdrop="static" 
+        data-bs-keyboard="false">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 *ngIf="this.encuesta" class="modal-title" id="textModalLabel">Actualizar Encuesta</h5>
+              <h5 *ngIf="this.resenya" class="modal-title" id="textModalLabel">Actualizar Rese&ntilde;a</h5>
+            </div>
+            <div class="modal-body">
+              <textarea 
+                [disabled]="!this.encuesta && !this.resenya"
+                class="w-100" 
+                [(ngModel)]="this.texto" 
+                name="texto" 
+                id="texto" 
+                cols="30" 
+                rows="10"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button 
+                    *ngIf="this.encuesta" 
+                    (click)="this.actualizarEncuesta()" 
+                    type="button" 
+                    class="btn btn-primary"
+                    [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Encuesta</button>
+                <button 
+                    *ngIf="this.resenya" 
+                    (click)="this.actualizarResenya()" 
+                    type="button" 
+                    class="btn btn-primary"
+                    [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Rese&ntilde;a</button>
+                <button (click)="salirDelModal()" data-bs-dismiss="modal" class="btn btn-danger">Salir</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>

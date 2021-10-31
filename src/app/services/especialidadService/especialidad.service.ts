@@ -15,7 +15,7 @@ export class EspecialidadService {
 
   async getCategorias () {
     return ( await this.db.collection( this.collection ).get().toPromise() ).docs.map( especialidad =>
-      new Especialidad( especialidad.id , (especialidad.data() as any).tipo )
+      new Especialidad( especialidad.id , (especialidad.data() as any).tipo, (especialidad.data() as any).imagenURL )
     );
   }
 

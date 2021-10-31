@@ -12,7 +12,11 @@ export class TablaTurnosComponent implements OnInit {
   @Input() public turnos : any[] = [];
   public iniciado? : Usuario;
 
-  public texto : string = "";
+  public indexTurnoElegido : number = -1;
+  public resenya : boolean = false;
+  public encuesta : boolean = false;
+
+  public texto = "";
 
   constructor(
     private turnoService : TurnoService,
@@ -39,8 +43,58 @@ export class TablaTurnosComponent implements OnInit {
     this.turnoService.actualizarTurno( turno );
   }
 
-  mostrarTexto ( texto : string ) {
-    this.texto = texto;
+  prepararResenya( index : number ) {
+    this.indexTurnoElegido = index;
+    const turno = this.turnos[index];
+
+    if ( !turno.resenia ){
+      this.resenya = true;
+      this.texto = "";
+      return
+    }
+    
+    this.texto = turno.resenia;
   }
+
+  prepararEncuesta( index : number ) {
+    this.indexTurnoElegido = index;
+    const turno = this.turnos[index];
+
+    if ( !turno.encuesta ) {
+      this.encuesta = true;
+      this.texto = "";
+      return
+    }
+
+    this.texto = turno.encuesta;
+  }
+  
+  actualizarEncuesta() {
+
+    if ( this.encuesta ) {
+      const turno = this.turnos [ this.indexTurnoElegido ];
+      turno.encuesta = this.texto;
+      this.encuesta = false;
+      this.actualizarTurnoValor( turno, this.texto, 'encuesta' );
+    }
+
+  }
+
+  actualizarResenya() {
+    
+    if ( this.resenya ) {
+      const turno = this.turnos [ this.indexTurnoElegido ];
+      turno.resenia = this.texto;
+      this.resenya = false;
+      this.actualizarTurnoValor( turno, this.texto, 'resenia' );
+    }
+
+  }
+
+  salirDelModal() {
+    this.encuesta = false;
+    this.resenya = false;
+  }
+
 
 }

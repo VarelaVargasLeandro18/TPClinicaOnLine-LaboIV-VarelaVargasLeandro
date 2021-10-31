@@ -1,9 +1,11 @@
-<div class="d-flex flex-column justify-content-between text-center">
+<div class="d-flex flex-column justify-content-between text-center scroll-y">
     <div class="text-center scroll-x">
         <h2>Elija una especialidad</h2>
         <ul class="unstyled-list d-flex justify-content-between">
             <li class="mb-1" *ngFor="let especialidad of this.especialidades" >
-                <button class="btn btn-primary" (click)="this.elegirEspecialidad( especialidad.id )">
+                <button 
+                    class="btn btn-primary" 
+                    (click)="this.elegirEspecialidad( especialidad.id )">
                     {{especialidad.tipo}}
                 </button>
             </li>
@@ -13,7 +15,9 @@
         <h2>Elija un especialista</h2>
         <ul class="unstyled-list d-flex justify-content-between">
             <li class="mb-1" *ngFor="let especialista of this.especialistas" >
-                <button class="btn btn-warning" (click)="this.elegirEspecialista( especialista.email )">
+                <button 
+                    class="btn btn-primary" 
+                    (click)="this.elegirEspecialista( especialista )">
                     {{especialista.nombre + " " + especialista.apellido}}
                 </button>
             </li>

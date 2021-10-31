@@ -36,7 +36,7 @@
             <td *ngIf="usuario.aprobado != undefined">
                 <label for="aprobado">
                     Aprobado:
-                    <input [(ngModel)]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
+                    <input [value]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
                 </label>
             </td>
             <td>
