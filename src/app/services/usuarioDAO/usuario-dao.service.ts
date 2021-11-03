@@ -127,7 +127,12 @@ export class UsuarioDAOService implements OnInit {
   }  
 
   getUsuariosAtendidosPorEspecialista ( especialistaEmail : string ) {
-    
+    const collectionTurnos = "turnos";
+    return this.db.collection( collectionTurnos ).ref
+                        .where( "especialista", "==", especialistaEmail )
+                        .get()
+                        .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) )
+                        .then( (data : any) => data.paciente );
   }
 
   private getUsuariosPorRazon( razon : string ) {
