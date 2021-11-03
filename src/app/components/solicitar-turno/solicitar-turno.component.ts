@@ -6,6 +6,8 @@ import { EspecialidadService } from 'src/app/services/especialidadService/especi
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
 import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.service';
 import { UsuarioService } from 'src/app/services/usuarioService/usuario.service';
+import { defer, from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -30,7 +32,8 @@ export class SolicitarTurnoComponent implements OnInit {
     private especialidadService : EspecialidadService,
     private usuarioDAOService : UsuarioDAOService,
     private usuarioService : UsuarioService,
-    private turnoService : TurnoService
+    private turnoService : TurnoService,
+    private router : Router
   ) {
     this.iniciado = this.usuarioService.iniciado;
   }
@@ -64,18 +67,14 @@ export class SolicitarTurnoComponent implements OnInit {
     const currentDate = new Date();
     let dias = this.filterDays( this.getWeekdaysInMonth( currentDate.getMonth(), currentDate.getFullYear() ) );
     this.dias = this.estilizarDias( dias );
-
-    if ( this.dias.length === 0 ) {
-      this.dias.push ( "01-11-2021" );
-    }
-
   }
 
-  elegirDia ( dia : string ) {
+  async elegirDia ( dia : string ) {
     this.dia = dia;
     this.horario = "";
-    this.obtenerHorarios( this.especialista.horarioMin, this.especialista.horarioMax );
-    
+    this.horarios = [];
+    this.obtenerHorarios( this.especialista.horarioMin, this.especialista.horarioMax ); 
+    this.horarios = await this.filtrarHorarios(dia);
   }
 
   elegirHorario ( horario : string ) {
@@ -88,6 +87,11 @@ export class SolicitarTurnoComponent implements OnInit {
     turno.especialidad = this.especialista.especialidad;
     turno.especialista = this.especialista.email;
     turno.fecha = this.horario;
+    this.turnoService.addTurno( turno ).then( () =>  this.router.navigateByUrl( "/misTurnos" ) );
+  }
+
+  setPaciente( paciente : Usuario ) {
+    this.paciente = paciente;
   }
 
   private async traerEspecialistas ( especialidad? : string ) {
@@ -96,17 +100,25 @@ export class SolicitarTurnoComponent implements OnInit {
     this.especialistas = await this.usuarioDAOService.getEspecialistasPorEspecialidad( especialidad );
   }
 
+  private async filtrarHorarios( dia : string ) {
+    const horarios : string[] = [];
+    this.horarios.forEach( async (horario) => {
+        const disponibilidad = (await this.chequearDisponibilidadFecha( dia + "T" + horario ));
+        if ( disponibilidad ) horarios.push(horario);
+    } )
+    return horarios;
+  }
+
   public async chequearDisponibilidadFecha ( fecha : string ) {
-    console.log( fecha );
-    
-    return true//( await this.turnoService.averiguarSiHayTurnoEnHorario( this.especialista.email, fecha ) )?.length === 0;
+    const turnos = ( await this.turnoService.averiguarSiHayTurnoEnHorario( this.especialista.email, fecha ) );
+    return (turnos === undefined || turnos.length === 0);
   }
 
   private estilizarDias ( days : number[] ) : string[] {
     const currentDate = new Date();
-    const month = currentDate.getMonth();
+    const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
-    return days.map( (day) => year + "-" + (month + 1) + day);
+    return days.map( (day) => year + "-" + ( ( month < 10) ? "0" + month : month ) + "-" + ((day < 10) ? "0" + day : day) );
   }
 
   private filterDays( days : number[] ) : number[] {
@@ -156,12 +168,6 @@ export class SolicitarTurnoComponent implements OnInit {
       if ( minuto === 0 ) 
         minuto = 30;
     } 
-  }
-
-  private combinarDiaYHorarios ( dia : string ) {
-    const fechas = [];
-
-    return this.horarios.map( (horario) => dia + 'T' + horario );
   }
 
 }

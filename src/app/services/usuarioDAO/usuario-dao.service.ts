@@ -72,8 +72,8 @@ export class UsuarioDAOService implements OnInit {
     } catch (err) {
       this.usuarioService.errorRegistrar( "El mail ingresado no es válido!" );
       return
-    } */   
-    
+    } */
+
     if ( usuarioLogeado != undefined ) {
       this.usuarioService.usuarioExistente('Este email se encuentra en uso.');
       return
@@ -125,6 +125,10 @@ export class UsuarioDAOService implements OnInit {
               .toPromise()
               .then( snapshot => snapshot.data() );
   }  
+
+  getUsuariosAtendidosPorEspecialista ( especialistaEmail : string ) {
+    
+  }
 
   private getUsuariosPorRazon( razon : string ) {
     return this.db.collection( this.collectionUsr ).ref.where( 'razon', '==', razon )

@@ -28,7 +28,7 @@
         <ul class="unstyled-list d-flex justify-content-between align-items-center">
             <li class="mb-1" *ngFor="let dia of this.dias" >
                 <button 
-                    class="btn btn-primary" 
+                    class="btn btn-primary btn-min-width" 
                     (click)="this.elegirDia( dia )">
                     {{dia}}
                 </button>
@@ -39,7 +39,7 @@
         <h2>Elija un Horario</h2>
         <ul class="unstyled-list d-flex justify-content-between align-items-center">
             <li class="mb-1" *ngFor="let horario of this.horarios" >
-                <button 
+                <button
                     class="btn btn-primary" 
                     (click)="this.elegirHorario(horario)">
                     {{horario}}
@@ -49,11 +49,17 @@
     </div>
     <div *ngIf="this.horario && this.pacientes" class="text-center mb-1">
         <h2>Elija un Paciente</h2>
-        <select class="form-control">
-            <option *ngFor="let paciente of this.pacientes" [value]="paciente.email">{{paciente.email}}</option>
-        </select>
+        <ul class="unstyled-list d-flex justify-content-between align-items-center">
+            <li class="mb-1" *ngFor="let paciente of this.pacientes" >
+                <button
+                    class="btn btn-primary" 
+                    (click)="this.setPaciente(paciente)">
+                    {{paciente.email}}
+                </button>
+            </li>
+        </ul>
     </div>
-    <div *ngIf="this.paciente" class="w-100 text-center">
+    <div *ngIf="this.paciente && this.horario" class="w-100 text-center">
         <button 
             class="btn btn-success"
             (click)="this.solicitarTurno()">Solicitar Turno</button>

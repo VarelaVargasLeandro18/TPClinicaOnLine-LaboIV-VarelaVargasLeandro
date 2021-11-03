@@ -21,23 +21,22 @@ export class TurnoService {
   }
 
   async averiguarSiHayTurnoEnHorario ( especialista : string, fecha : string ) {
-    console.log("averiguarSiHayTurnoEnHorario");
-    /* const turnos = await this.getTurnosByEspecialista( especialista );
-    if ( turnos.length === 0 ) return
+    const turnos = await this.getTurnosByEspecialista( especialista );
+    if ( turnos.length === 0 ) return 
     
     const MIN30 = (30*60*1000);
     const fechaParsed = Date.parse( fecha );
     const fechaMinus30Min = fechaParsed - MIN30;
-    const fechaPlus30Min = fechaParsed + MIN30; */
+    const fechaPlus30Min = fechaParsed + MIN30; 
     
-    return [];
-    /* return turnos.map( (turno : any) => {
+    return turnos.filter( (turno : any) => {
       const fechaOfTurnoParsed = Date.parse( turno.fecha );
-      if (  (fechaOfTurnoParsed > fechaMinus30Min || 
+      
+      return (  (fechaOfTurnoParsed > fechaMinus30Min && 
             fechaOfTurnoParsed < fechaPlus30Min ||
             fechaOfTurnoParsed === fechaParsed) && 
-            !turno.cancelado ) return turno;
-    } ); */
+            !turno.cancelado ) 
+    } );
   }
 
   getTodosLosTurnos () {
