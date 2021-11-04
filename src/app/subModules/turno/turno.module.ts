@@ -10,8 +10,9 @@ import { TablaTurnosComponent } from './components/tabla-turnos/tabla-turnos.com
 import { FiltroEspecialistaComponent } from './components/filtro-especialista/filtro-especialista.component';
 
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
+import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,13 @@ import {MatSliderModule} from '@angular/material/slider';
     PacienteComponent,
     EspecialistaComponent,
     TablaTurnosComponent,
-    FiltroEspecialistaComponent
+    FiltroEspecialistaComponent,
+    HistoriaClinicaComponent
   ],
   imports: [
     CommonModule,
     TurnoRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     MatSliderModule
   ]

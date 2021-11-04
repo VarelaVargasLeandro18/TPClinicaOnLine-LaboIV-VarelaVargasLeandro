@@ -12,20 +12,33 @@ export class HistoriaClinicaService {
     private db : AngularFirestore
   ) { }
 
-  addHistoriaClinica ( pacienteEmail : string, historia : any ) {
+  addHistoriaClinica ( pacienteEmail? : string, historia? : any ) {
+    if ( !pacienteEmail || !historia ) return
+
     return this.db.collection( this.collection ).doc( pacienteEmail ).set( {...historia} );
   }
 
-  getHistoriaClinica ( pacienteEmail : string ) {
-    return this.db.collection( this.collection ).doc( pacienteEmail ).get();
+  getHistoriaClinica ( pacienteEmail? : string ) {
+    if ( !pacienteEmail ) return
+
+    return this.db.collection( this.collection ).doc( pacienteEmail )
+      .get()
+      .toPromise()
+      .then( (document) => document.data() );
   }
 
-  updateHistoriaClinica ( pacienteEmail : string, historia : any ) {
+  updateHistoriaClinica ( pacienteEmail? : string, historia? : any ) {
+    if ( !pacienteEmail || !historia ) return
+
     return this.db.collection( this.collection ).doc( pacienteEmail ).update( historia );
   }
 
   getAllHistoriasClinicas () {
-    return this.db.collection( this.collection ).get();
+    return this.db.collection( this.collection )
+      .get()
+      .toPromise()
+      .then( (snapshots) => snapshots.docs )
+      .then( (documents) => documents.map( (document) => document.data() ) );
   }
 
 }

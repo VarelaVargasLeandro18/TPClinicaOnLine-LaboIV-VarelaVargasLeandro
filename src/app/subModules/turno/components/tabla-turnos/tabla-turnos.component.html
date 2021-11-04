@@ -74,7 +74,7 @@
                         Finalizado:
                         <input 
                             [(ngModel)]="turno.finalizado"
-                            (click)="this.actualizarTurnoChecked(turno, $event.target, 'finalizado')"
+                            (click)="this.finalizarTurno( turno, $event.target )"
                             [disabled]="this.iniciado?.razon === '2'"
                             type="checkbox" 
                             name="finalizado" 
@@ -84,73 +84,53 @@
             </tr>
         </tbody>
     </table>
-      
-      <!-- Modal Reseña/Encuesta -->
-      <div 
-        class="modal fade" 
-        id="textModal" 
-        tabindex="-1" 
-        aria-labelledby="textModalLabel" 
-        aria-hidden="true"
-        data-bs-backdrop="static" 
-        data-bs-keyboard="false">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 *ngIf="this.encuesta" class="modal-title" id="textModalLabel">Actualizar Encuesta</h5>
-              <h5 *ngIf="this.resenya" class="modal-title" id="textModalLabel">Actualizar Rese&ntilde;a</h5>
-            </div>
-            <div class="modal-body">
-              <textarea 
-                [disabled]="!this.encuesta && !this.resenya"
-                class="w-100" 
-                [(ngModel)]="this.texto" 
-                name="texto" 
-                id="texto" 
-                cols="30" 
-                rows="10"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button 
-                    *ngIf="this.encuesta" 
-                    (click)="this.actualizarEncuesta()" 
-                    type="button" 
-                    class="btn btn-primary"
-                    [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Encuesta</button>
-                <button 
-                    *ngIf="this.resenya" 
-                    (click)="this.actualizarResenya()" 
-                    type="button" 
-                    class="btn btn-primary"
-                    [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Rese&ntilde;a</button>
-                <button (click)="salirDelModal()" data-bs-dismiss="modal" class="btn btn-danger">Salir</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-    </button>
-  
-  <!-- Modal Historia Clinica  -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            ...
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-        </div>
+    <app-historia-clinica 
+        *ngIf="this.mailFinalizado"
+        [usuarioMail]="this.mailFinalizado"></app-historia-clinica>
+
+</div>
+
+<!-- Modal Reseña/Encuesta -->
+<div 
+class="modal fade" 
+id="textModal" 
+tabindex="-1" 
+aria-labelledby="textModalLabel" 
+aria-hidden="true"
+data-bs-backdrop="false" 
+data-bs-keyboard="false">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 *ngIf="this.encuesta" class="modal-title" id="textModalLabel">Actualizar Encuesta</h5>
+      <h5 *ngIf="this.resenya" class="modal-title" id="textModalLabel">Actualizar Rese&ntilde;a</h5>
     </div>
-
+    <div class="modal-body">
+      <textarea 
+        [disabled]="!this.encuesta && !this.resenya"
+        class="w-100" 
+        [(ngModel)]="this.texto" 
+        name="texto" 
+        id="texto" 
+        cols="30" 
+        rows="10"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button 
+            *ngIf="this.encuesta" 
+            (click)="this.actualizarEncuesta()" 
+            type="button" 
+            class="btn btn-primary"
+            [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Encuesta</button>
+        <button 
+            *ngIf="this.resenya" 
+            (click)="this.actualizarResenya()" 
+            type="button" 
+            class="btn btn-primary"
+            [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Rese&ntilde;a</button>
+        <button (click)="salirDelModal()" data-bs-dismiss="modal" class="btn btn-danger">Salir</button>
+    </div>
+  </div>
+</div>
 </div>

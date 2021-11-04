@@ -16,6 +16,8 @@ export class TablaTurnosComponent implements OnInit {
   public resenya : boolean = false;
   public encuesta : boolean = false;
 
+  public mailFinalizado : string = "";
+
   public texto = "";
 
   constructor(
@@ -41,6 +43,19 @@ export class TablaTurnosComponent implements OnInit {
   actualizarTurnoChecked ( turno : any, target : any, atributo : any ) {
     turno[atributo] = target.checked;
     this.turnoService.actualizarTurno( turno );
+  }
+
+  finalizarTurno ( turno : any, target : any ) {
+    this.actualizarTurnoChecked(turno, target, 'finalizado');
+
+    if ( target.checked ) {
+      this.mailFinalizado = turno.paciente;
+      return
+    }
+
+    if ( !target.checked ) this.mailFinalizado = "";
+
+  
   }
 
   prepararResenya( index : number ) {
