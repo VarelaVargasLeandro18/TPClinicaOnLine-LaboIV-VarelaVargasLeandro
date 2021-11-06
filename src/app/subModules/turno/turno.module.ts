@@ -13,6 +13,7 @@ import { FiltroEspecialistaComponent } from './components/filtro-especialista/fi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
+import { FiltroTurnoComponent } from './components/filtro-turno/filtro-turno.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HistoriaClinicaComponent } from './components/historia-clinica/historia
     EspecialistaComponent,
     TablaTurnosComponent,
     FiltroEspecialistaComponent,
-    HistoriaClinicaComponent
+    HistoriaClinicaComponent,
+    FiltroTurnoComponent
   ],
   imports: [
     CommonModule,

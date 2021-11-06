@@ -8,6 +8,8 @@ import { TurnoService } from 'src/app/services/turnoService/turno.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  public mostrarEspecialista : boolean = true;
+  public mostrarTurno : boolean = false;
 
   public turnos : any[] = [];
 
@@ -22,5 +24,22 @@ export class AdminComponent implements OnInit {
   public async elegidoEspecialista ( especialistaMail : string ) {
     this.turnos = await this.turnosService.getTurnosByEspecialista( especialistaMail );
   }
+
+  public elegidoTurnos ( turnos : Turno[] ) {
+    this.turnos = turnos;
+  }
+
+  public filtrarPorEspecialista() {
+    this.turnos = [];
+    this.mostrarEspecialista = true;
+    this.mostrarTurno = false;
+  }
+
+  public filtrarPorTurno() {
+    this.turnos= [];
+    this.mostrarTurno = true;
+    this.mostrarEspecialista = false;
+  }
+
 
 }

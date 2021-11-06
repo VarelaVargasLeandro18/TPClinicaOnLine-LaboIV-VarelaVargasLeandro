@@ -16,7 +16,7 @@ export class TablaTurnosComponent implements OnInit {
   public resenya : boolean = false;
   public encuesta : boolean = false;
 
-  public mailFinalizado : string = "";
+  public idFinalizado : string = "";
 
   public texto = "";
 
@@ -45,17 +45,21 @@ export class TablaTurnosComponent implements OnInit {
     this.turnoService.actualizarTurno( turno );
   }
 
-  finalizarTurno ( turno : any, target : any ) {
-    this.actualizarTurnoChecked(turno, target, 'finalizado');
+  async finalizarTurno ( turno : any, target : any ) {
+    await this.actualizarTurnoChecked(turno, target, 'finalizado');
 
     if ( target.checked ) {
-      this.mailFinalizado = turno.paciente;
+      this.settearFinalizado( turno );
       return
     }
 
-    if ( !target.checked ) this.mailFinalizado = "";
+    if ( !target.checked && this.idFinalizado === turno.id ) 
+      this.idFinalizado = "";
+  }
 
-  
+  settearFinalizado( turno : any ) {
+    this.idFinalizado = "";
+    this.idFinalizado = turno.id;
   }
 
   prepararResenya( index : number ) {

@@ -8,7 +8,7 @@ import { HistoriaClinicaService } from 'src/app/services/historiaClinica/histori
   styleUrls: ['./historia-clinica.component.css']
 })
 export class HistoriaClinicaComponent implements OnInit {
-  @Input() public usuarioMail : any;
+  @Input() public idTurno : string = "";
 
   public readonly ALTURA_MINIMA : number = 0;
   public readonly ALTURA_MAXIMA : number = 500;
@@ -41,7 +41,7 @@ export class HistoriaClinicaComponent implements OnInit {
   }
 
   private async settearValores() {
-    const historia : any = await this.historiaClinicaService.getHistoriaClinica( this.usuarioMail );
+    const historia : any = await this.historiaClinicaService.getHistoriaClinica( this.idTurno );
 
     if ( !historia ) return
         
@@ -78,8 +78,8 @@ export class HistoriaClinicaComponent implements OnInit {
     this.settearValores();
   }
 
-  async submitHistoriaClinica(event : any) {
-    if ( !this.usuarioMail || !this.form.valid  ) return
+  submitHistoriaClinica(event : any) {
+    if ( !this.idTurno || !this.form.valid  ) return
 
     const historia : any = {};
     historia.altura = this.form.controls.altura.value;
@@ -89,7 +89,8 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.agregarDatosDinamicos( historia );
 
-    this.historiaClinicaService.addHistoriaClinica( this.usuarioMail, historia );
+    this.historiaClinicaService.addHistoriaClinica( this.idTurno, historia )
+    ?.then( () => this.deshabilitarForm() )
   }
 
   private agregarDatosDinamicos ( historia : any ) {

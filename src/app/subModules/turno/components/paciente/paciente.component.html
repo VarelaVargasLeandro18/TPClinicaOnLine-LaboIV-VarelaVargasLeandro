@@ -1,6 +1,18 @@
+<div class="d-flex flex-row justify-content-center my-2">
+    <button class="btn btn-primary" (click)="this.filtrarPorEspecialista()">Filtrar Por Especialista</button>
+    <button class="btn btn-primary" (click)="this.filtrarPorTurno()">Filtrar Por Campo Turno</button>
+</div>
 <div class="d-flex flex-column align-items-between">
+    
     <app-filtro-especialista
+        *ngIf="this.mostrarEspecialista"
         (especialista)="this.elegidoEspecialista($event)" >
     </app-filtro-especialista>
+    
+    <app-filtro-turno
+        *ngIf="this.mostrarTurno"
+        [paciente]="this.iniciado"
+        (turnos)="this.elegidoTurnos($event)"></app-filtro-turno>
+    
     <app-tabla-turnos [turnos]="this.turnos"></app-tabla-turnos>
 </div>

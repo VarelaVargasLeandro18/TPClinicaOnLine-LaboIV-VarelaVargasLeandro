@@ -14,4 +14,5 @@ export class Turno {
     public reseniaCancelado? : string;
 
     public cancelado? : boolean;
+    public historia : any;
 }

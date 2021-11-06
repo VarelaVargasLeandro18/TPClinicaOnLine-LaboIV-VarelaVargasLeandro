@@ -71,4 +71,14 @@ export class TurnoService {
             } ) );
   }
 
+  getTurnosPorCampo ( campo : string, valor : string ) {
+    return this.db.collection( this.collection ).ref.where( campo, "==", valor )
+            .get()
+            .then( snapshots => snapshots.docs.map( doc => {
+              const ret : any = doc.data();
+              ret.id = doc.id;
+              return ret;
+            } ) );
+  }
+
 }

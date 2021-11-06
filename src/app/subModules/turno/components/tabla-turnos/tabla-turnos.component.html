@@ -81,13 +81,22 @@
                             id="finalizado">
                     </label>
                 </td>
+                <td>
+                    <button 
+                        *ngIf="turno.finalizado"
+                        class="btn btn-primary"
+                        (click)="this.settearFinalizado(turno)">
+                        Ver Historia Clinica
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <app-historia-clinica 
-        *ngIf="this.mailFinalizado"
-        [usuarioMail]="this.mailFinalizado"></app-historia-clinica>
+    <div *ngIf="this.idFinalizado">
+        <app-historia-clinica
+            [idTurno]="this.idFinalizado"></app-historia-clinica>
+    </div>
 
 </div>
 

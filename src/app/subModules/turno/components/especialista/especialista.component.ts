@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Turno } from 'src/app/models/turno/turno';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
 import { UsuarioService } from 'src/app/services/usuarioService/usuario.service';
@@ -10,7 +11,9 @@ import { UsuarioService } from 'src/app/services/usuarioService/usuario.service'
 })
 export class EspecialistaComponent implements OnInit {
   public iniciado? : Usuario;
-  public turnos : any[] = [];
+  public turnos : Turno[] = [];
+  public mostrarEspecialista : boolean = true;
+  public mostrarTurno : boolean = false;
 
   constructor(
     private usuarioService : UsuarioService,
@@ -21,6 +24,20 @@ export class EspecialistaComponent implements OnInit {
 
   async ngOnInit() {
     this.turnos = await this.turnosService.getTurnosByEspecialista( this.iniciado?.email );
+  }
+
+  public elegidoTurnos ( turnos : Turno[] ) {
+    this.turnos = turnos;
+  }
+
+  public filtrarPorEspecialista() {
+    this.mostrarEspecialista = true;
+    this.mostrarTurno = false;
+  }
+
+  public filtrarPorTurno() {
+    this.mostrarTurno = true;
+    this.mostrarEspecialista = false;
   }
 
 }

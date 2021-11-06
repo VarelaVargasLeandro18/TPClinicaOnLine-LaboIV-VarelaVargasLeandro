@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Turno } from 'src/app/models/turno/turno';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
 import { UsuarioService } from 'src/app/services/usuarioService/usuario.service';
@@ -11,6 +12,8 @@ import { UsuarioService } from 'src/app/services/usuarioService/usuario.service'
 export class PacienteComponent implements OnInit {
   public iniciado? : Usuario;
   public turnos : any[] = [];
+  public mostrarEspecialista : boolean = true;
+  public mostrarTurno : boolean = false;
 
   constructor(
     private usuarioService : UsuarioService,
@@ -26,6 +29,22 @@ export class PacienteComponent implements OnInit {
   public async elegidoEspecialista ( especialistaMail : string ) {
     this.turnos = (await this.turnosService.getTurnosByEspecialista( especialistaMail ))
       .filter( (turno) => turno.paciente === this.iniciado?.email );
+  }
+
+  public elegidoTurnos ( turnos : Turno[] ) {
+    this.turnos = turnos;
+  }
+
+  public filtrarPorEspecialista() {
+    this.turnos = [];
+    this.mostrarEspecialista = true;
+    this.mostrarTurno = false;
+  }
+
+  public filtrarPorTurno() {
+    this.turnos= [];
+    this.mostrarTurno = true;
+    this.mostrarEspecialista = false;
   }
 
 }

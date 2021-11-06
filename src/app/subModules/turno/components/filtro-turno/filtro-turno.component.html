@@ -1,0 +1,39 @@
+<div class="container-fluid py-5 text-center">
+    <h1 class="display-5 fw-bold">Campo por el que buscar (turno)</h1>
+    <ul class="grid-list">
+        <li *ngFor="let campo of this.camposTurno">
+            <button 
+                class="btn btn-primary"
+                (click)="this.setCampoTurno(campo)">
+                {{campo}}
+            </button>
+        </li>
+    </ul>
+</div>
+<div class="row justify-content-center">
+    <div 
+        *ngIf="this.campoTurnoElegido === 'historia'" 
+        class="col-md-6">
+      <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h2>Campo por el que buscar (historia)</h2>
+        <ul class="grid-list">
+            <li *ngFor="let campo of this.camposHistoria">
+                <button 
+                    class="btn btn-primary"
+                    (click)="this.setCampoHistoria(campo)">
+                    {{campo}}
+                </button>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div 
+        *ngIf="this.mostrarValor()"
+        class="h-100 p-5 bg-light border rounded-3">
+        <h2>Ingrese valor del campo que quiere buscar</h2>
+        <input [(ngModel)]="this.valorCampo" placeholder="valor" class="form-control"/> 
+        <button (click)="this.buscar()" class="btn btn-outline-secondary" type="button">Buscar</button>
+      </div>
+    </div>
+</div>

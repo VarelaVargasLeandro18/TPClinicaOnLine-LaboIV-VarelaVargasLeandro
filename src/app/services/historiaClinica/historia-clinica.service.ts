@@ -6,39 +6,26 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class HistoriaClinicaService {
 
-  private collection : string = "historiaClinica";
+  private collection : string = "turnos";
 
   constructor(
     private db : AngularFirestore
   ) { }
 
-  addHistoriaClinica ( pacienteEmail? : string, historia? : any ) {
-    if ( !pacienteEmail || !historia ) return
+  addHistoriaClinica ( turnoId? : string, historia? : any ) {
+    if ( !turnoId || !historia ) return
 
-    return this.db.collection( this.collection ).doc( pacienteEmail ).set( {...historia} );
+    return this.db.collection( this.collection ).doc( turnoId ).update({ historia });
   }
 
-  getHistoriaClinica ( pacienteEmail? : string ) {
-    if ( !pacienteEmail ) return
+  getHistoriaClinica ( turnoId? : string ) {
+    if ( !turnoId ) return
 
-    return this.db.collection( this.collection ).doc( pacienteEmail )
+    return this.db.collection( this.collection ).doc( turnoId )
       .get()
       .toPromise()
-      .then( (document) => document.data() );
-  }
-
-  updateHistoriaClinica ( pacienteEmail? : string, historia? : any ) {
-    if ( !pacienteEmail || !historia ) return
-
-    return this.db.collection( this.collection ).doc( pacienteEmail ).update( historia );
-  }
-
-  getAllHistoriasClinicas () {
-    return this.db.collection( this.collection )
-      .get()
-      .toPromise()
-      .then( (snapshots) => snapshots.docs )
-      .then( (documents) => documents.map( (document) => document.data() ) );
+      .then( (document) => document.data() )
+      .then( (data : any) => data.historia );
   }
 
 }
