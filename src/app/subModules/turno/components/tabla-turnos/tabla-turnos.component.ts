@@ -16,7 +16,7 @@ export class TablaTurnosComponent implements OnInit {
   public resenya : boolean = false;
   public encuesta : boolean = false;
 
-  public idFinalizado : string = "";
+  public idFinalizado? : string = undefined;
 
   public texto = "";
 
@@ -58,8 +58,10 @@ export class TablaTurnosComponent implements OnInit {
   }
 
   settearFinalizado( turno : any ) {
-    this.idFinalizado = "";
-    this.idFinalizado = turno.id;
+    this.idFinalizado = undefined;
+    setTimeout( () => {
+      this.idFinalizado = turno.id;
+      }, 1000 );
   }
 
   prepararResenya( index : number ) {

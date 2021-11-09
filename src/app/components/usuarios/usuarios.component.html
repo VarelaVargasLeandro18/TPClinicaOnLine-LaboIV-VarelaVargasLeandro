@@ -34,9 +34,9 @@
                 {{usuario.contrasenia}}
             </td>
             <td *ngIf="usuario.aprobado != undefined">
-                <label for="aprobado">
+                <label class="hover" for="aprobado">
                     Aprobado:
-                    <input [value]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
+                    <input [checked]="this.usuarios[i].aprobado" (click)="this.onAprobadoClick(this.usuarios[i], $event)" type="checkbox" name="aprobado" id="aprobado">
                 </label>
             </td>
             <td>

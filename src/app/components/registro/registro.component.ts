@@ -88,7 +88,7 @@ export class RegistroComponent implements OnInit {
     this.categorias = await this.categoriasService.getCategorias();
     this.categorias = this.categorias.filter( categoria => categoria.id !== 0 );
     this.especialidades = await this.especialidadesService.getCategorias();
-  }
+  }  
 
   isRequiredField(field: string) {
     const form_field = this.form.get(field);

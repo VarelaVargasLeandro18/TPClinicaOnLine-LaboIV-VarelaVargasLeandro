@@ -77,6 +77,11 @@ export class FiltroTurnoComponent implements OnInit {
   }
 
   private buscarPorCampoDeTurno() {
+    let valorCampo : string | number = this.valorCampo;
+
+    if ( this.campoTurnoElegido === 'calificacion' )
+      valorCampo = parseInt(valorCampo);
+
     return this.turnoService.getTurnosPorCampo(
       this.campoTurnoElegido,
       this.valorCampo

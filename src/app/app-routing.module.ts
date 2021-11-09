@@ -9,13 +9,13 @@ import { AdministradorGuard } from './guards/administrador.guard';
 import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
-  { path: 'log-in', component: LoginComponent },
-  { path: 'sign-up', component: RegistroComponent},
+  { path: 'log-in', component: LoginComponent, data: { animation: 'log-in-page' } },
+  { path: 'sign-up', component: RegistroComponent, data: { animation: 'sign-up-page' }},
   { path: 'users', component: UsuariosComponent, canActivate: [AdministradorGuard] },
   { path: 'misTurnos', loadChildren: () => import('./subModules/turno/turno.module').then(m => m.TurnoModule) },
-  { path: 'solicitarTurno', component: SolicitarTurnoComponent, canActivate: [RoleGuard], data: { razon: [ '0', '2' ] } },
-  { path: 'miPerfil', component: MiPerfilComponent, canActivate: [RoleGuard], data: { razon: [ '0', '1', '2' ] } },
-  { path: '**', pathMatch: 'full', redirectTo:'/' }
+  { path: 'solicitarTurno', component: SolicitarTurnoComponent, canActivate: [RoleGuard], data: { razon: [ '0', '2' ], animation: 'solicitarTurno-page' } },
+  { path: 'miPerfil', component: MiPerfilComponent, canActivate: [RoleGuard], data: { razon: [ '0', '1', '2' ], animation: 'miPerfil-page' } },
+  { path: '**', pathMatch: 'full', redirectTo:'/'}
 ];
 
 @NgModule({

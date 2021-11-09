@@ -1,6 +1,6 @@
 <!-- Agregar agradecimientos:  -->
 <app-navigation></app-navigation>
-<main class="container">
-  <router-outlet></router-outlet>
+<main class="container" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 <app-footer></app-footer>

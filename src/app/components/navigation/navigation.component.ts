@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
     this.usuarioService.sesionIniciada
       .subscribe( (usuario) => {
         this.usuario = usuario;
-        this.router.navigate(['']);
+        this.router.navigate(['misTurnos']);
       } );
 
       this.usuarioService.sesionTerminada

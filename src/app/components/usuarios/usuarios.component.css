@@ -5,3 +5,7 @@
 .m-w-300 {
     max-width: 300px;
 }
+
+.hover:hover {
+    cursor: pointer;
+}

@@ -20,5 +20,4 @@ al seleccionar se muestran el detalle de los turnos y tiene que aparecer una for
 Al seleccionarlos se descarga el excel de todos los turnos que tomó, con su especialidad y horario de ese paciente con qué médico.
 - Paciente ingresa en mi perfil, al descargar historia clínica, el PDF tiene que tener Imagen clínica, título, fecha emisión. Además se tiene que poder bajar atenciones
 realizadas según profesional. Bajar historia completa o atenciones.
-- Animación de transición entre componentes, 2 como mínimo que vengan de derecha y que salgan por izquierda.
-- Se pueden hacer 2 cosas, aplicar a toda la página o agregar de der a izq y agregar alguna custom.
+- Animación de transición entre componentes, 2 como mínimo que vengan de derecha y que salgan por izquierda. Hecho

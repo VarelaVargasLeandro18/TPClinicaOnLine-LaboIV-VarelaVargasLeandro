@@ -52,7 +52,7 @@
                         step="1" 
                         [disabled]="turno.califacion || !turno.finalizado"
                         [value]="turno.calificacion ? turno.calificacion : 0"
-                        (valueChange)="this.actualizarTurnoValor( turno, $event, 'califacion' )"></mat-slider>
+                        (valueChange)="this.actualizarTurnoValor( turno, $event, 'calificacion' )"></mat-slider>
                     <span *ngIf="this.iniciado?.razon != '2'">{{turno.califacion}}</span>
                 </td>
                 <td class="text-center">

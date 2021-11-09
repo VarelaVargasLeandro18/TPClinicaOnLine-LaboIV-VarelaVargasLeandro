@@ -135,6 +135,15 @@ export class UsuarioDAOService implements OnInit {
                         .then( (data : any) => data.paciente );
   }
 
+  getEspecialistasQueAtendieronAUsuario ( usuarioEmail : string ) {
+    const collectionTurnos = "turnos";
+    return this.db.collection( collectionTurnos ).ref
+                        .where( 'paciente', "==", usuarioEmail )
+                        .get()
+                        .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) )
+                        .then( (data: any) => data.especialista );
+  }
+
   private getUsuariosPorRazon( razon : string ) {
     return this.db.collection( this.collectionUsr ).ref.where( 'razon', '==', razon )
               .get()

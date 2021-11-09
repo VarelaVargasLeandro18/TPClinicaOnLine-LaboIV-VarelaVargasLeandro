@@ -1,6 +1,6 @@
 <form 
     [formGroup]="this.form" 
-    [@openClose]=" this.mostrarFullScreen ? 'closed' : 'open' "  
+    [@openClose]=" this.mostrarFullScreen ? 'closed' : 'open' "
     [ngClass]="{ 'no-display': this.mostrarFullScreen }" 
     (ngSubmit)="this.onSubmit($event)">
     <h2 class="mb-3">Registro</h2>

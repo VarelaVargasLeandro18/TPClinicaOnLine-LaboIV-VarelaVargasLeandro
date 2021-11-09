@@ -71,7 +71,19 @@ export class TurnoService {
             } ) );
   }
 
-  getTurnosPorCampo ( campo : string, valor : string ) {
+  getTurnosByPacienteAndEspecialista ( especialista : string, paciente : string ) {
+    return this.db.collection( this.collection ).ref
+            .where( 'especialista', '==', especialista )
+            .get()
+            .then( snapshots => snapshots.docs.map( doc => {
+              const ret : any = doc.data();
+              ret.id = doc.id;
+              return ret;
+            } ) )
+            .then( turnos => turnos.filter( (turno) => turno.paciente === paciente ) );
+  }
+
+  getTurnosPorCampo ( campo : string, valor : string|number ) {
     return this.db.collection( this.collection ).ref.where( campo, "==", valor )
             .get()
             .then( snapshots => snapshots.docs.map( doc => {

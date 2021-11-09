@@ -61,17 +61,7 @@ export class HistoriaClinicaComponent implements OnInit {
   }
 
   private deshabilitarForm() {
-    this.form.controls.altura.disable( {emitEvent: false} );
-    this.form.controls.temperatura.disable( {emitEvent: false} );
-    this.form.controls.peso.disable( {emitEvent: false} );
-    this.form.controls.presion.disable( {emitEvent: false} );
-
-    this.form.controls.datoDinamicoUnoNombre.disable( {emitEvent: false} );
-    this.form.controls.datoDinamicoUnoValor.disable( {emitEvent: false} );
-    this.form.controls.datoDinamicoDosNombre.disable( {emitEvent: false} );
-    this.form.controls.datoDinamicoDosValor.disable( {emitEvent: false} );
-    this.form.controls.datoDinamicoTresNombre.disable( {emitEvent: false} );
-    this.form.controls.datoDinamicoTresValor.disable( {emitEvent: false} );
+    this.form.disable();
   }
 
   ngOnInit(): void {
