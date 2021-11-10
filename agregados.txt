@@ -14,10 +14,8 @@ Sacar Turno:
 RESEÑA (CASI)
 ----------------------------
 Agregados sprint 3:
-- Cuando ingreso como especialista en la sección pacientes, se muestran usuarios atendidos al menos una vez con FAB-button redondos con imagen perfil y nombres
+-------- Cuando ingreso como especialista en la sección pacientes, se muestran usuarios atendidos al menos una vez con FAB-button redondos con imagen perfil y nombres
 al seleccionar se muestran el detalle de los turnos y tiene que aparecer una forma de ver la reseña de ese turno.
-- Administrador ingresa y va a sección usuarios, baja los datos de usuarios en Excel y a parte mostrar Usuarios con FAB-button redondos con Email imagen. 
-Al seleccionarlos se descarga el excel de todos los turnos que tomó, con su especialidad y horario de ese paciente con qué médico.
-- Paciente ingresa en mi perfil, al descargar historia clínica, el PDF tiene que tener Imagen clínica, título, fecha emisión. Además se tiene que poder bajar atenciones
-realizadas según profesional. Bajar historia completa o atenciones.
-- Animación de transición entre componentes, 2 como mínimo que vengan de derecha y que salgan por izquierda. Hecho
+-------- Administrador ingresa y va a sección usuarios, baja los datos de usuarios en Excel y a parte mostrar Usuarios con FAB-button redondos con Email imagen. Al seleccionarlos se descarga el excel de todos los turnos que tomó, con su especialidad y horario de ese paciente, con qué médico.
+- Paciente ingresa en mi perfil, al descargar historia clínica, el PDF tiene que tener Imagen clínica, título, fecha emisión. Además se tiene que poder bajar atenciones realizadas según profesional. Bajar historia completa o atenciones.
+-------- Animación de transición entre componentes, 2 como mínimo que vengan de derecha y que salgan por izquierda. 

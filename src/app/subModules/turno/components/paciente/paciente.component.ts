@@ -23,7 +23,7 @@ export class PacienteComponent implements OnInit {
   }
 
   async ngOnInit() {
-    //this.turnos = await this.turnosService.getTurnosByPaciente( this.iniciado?.email );
+    this.turnos = await this.turnosService.getTurnosByPaciente( this.iniciado?.email );
   }
 
   public async elegidoEspecialista ( especialistaMail : string ) {
@@ -37,13 +37,13 @@ export class PacienteComponent implements OnInit {
 
   public filtrarPorEspecialista() {
     this.turnos = [];
-    this.mostrarEspecialista = true;
+    this.mostrarEspecialista = !this.mostrarEspecialista;
     this.mostrarTurno = false;
   }
 
   public filtrarPorTurno() {
     this.turnos= [];
-    this.mostrarTurno = true;
+    this.mostrarTurno = !this.mostrarTurno;
     this.mostrarEspecialista = false;
   }
 

@@ -36,7 +36,7 @@ export class EspecialistaComponent implements OnInit {
   }
 
   public filtrarPorTurno() {
-    this.mostrarTurno = true;
+    this.mostrarTurno = !this.mostrarTurno;
     this.mostrarEspecialista = false;
   }
 

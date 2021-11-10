@@ -5,8 +5,12 @@
       </a>
       <a *ngIf="!this.usuario" class="nav-link rounded border border-black" routerLink="log-in">Iniciar Sesión</a>
       <a *ngIf="!this.usuario" class="nav-link rounded border border-black" routerLink="sign-up">Crear cuenta</a>
-      <a *ngIf="this.usuario?.razon === '0'" class="nav-link rounded border border-black" routerLink="users">Usuarios</a>
-      <a *ngIf="this.usuario" class="nav-link rounded border border-black" routerLink="misTurnos">Mi Turno</a>
+      <a *ngIf="this.usuario?.razon === '0' || this.usuario?.razon === '1'" class="nav-link rounded border border-black" routerLink="users">
+        {{ (this.usuario?.razon === '1' ) ? 'Pacientes' : 'Usuarios' }}
+      </a>
+      <a *ngIf="this.usuario" class="nav-link rounded border border-black" routerLink="misTurnos">
+        {{ (this.usuario.razon == '0') ? 'Turnos' : 'Mis Turnos' }}
+      </a>
       <a *ngIf="this.usuario && (this.usuario.razon == '0' || this.usuario.razon == '2') " class="nav-link rounded border border-black" routerLink="solicitarTurno">Solicitar Turno</a>
       <a (click)="this.onLogOut()" *ngIf="this.usuario" class="nav-link rounded border border-black hover"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
       <a *ngIf="this.usuario" routerLink="miPerfil">

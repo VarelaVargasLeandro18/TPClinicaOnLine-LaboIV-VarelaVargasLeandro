@@ -5,6 +5,7 @@ import { Logger } from 'src/app/models/logger/logger';
 import { AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map } from 'rxjs/operators';
+import { async } from '@firebase/util';
 
 @Injectable({
   providedIn: 'root'
@@ -126,13 +127,21 @@ export class UsuarioDAOService implements OnInit {
               .then( snapshot => snapshot.data() );
   }  
 
-  getUsuariosAtendidosPorEspecialista ( especialistaEmail : string ) {
+  async getUsuariosAtendidosPorEspecialista ( especialistaEmail : string ) {
     const collectionTurnos = "turnos";
-    return this.db.collection( collectionTurnos ).ref
-                        .where( "especialista", "==", especialistaEmail )
-                        .get()
-                        .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) )
-                        .then( (data : any) => data.paciente );
+    const pacientesMails = await this.db.collection( collectionTurnos ).ref
+                                .where( "especialista", "==", especialistaEmail )
+                                .get()
+                                .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) )
+                                .then( (allData) => allData.map( (data : any) => data.paciente ) )
+                                .then( (pacientes) => pacientes.filter( (value, index, array) => array.indexOf(value) === index ) );
+    
+    const pacientes = [];
+
+    for ( let pacienteMail of pacientesMails )
+      pacientes.push( await this.getUsuario( pacienteMail ) );
+  
+    return pacientes;
   }
 
   getEspecialistasQueAtendieronAUsuario ( usuarioEmail : string ) {

@@ -1,3 +1,11 @@
-<ul>
-    <li></li>
+<ul class="unstyled-list">
+    <li *ngFor="let usuario of this.usuarios">
+        <button 
+            mat-fab 
+            class="image"
+            (click)="this.elegirUsuario(usuario)"
+            [style.backgroundImage]=" 'url(' + usuario.imagenUnoUrl  + ''"
+            [matTooltip]=" (usuario.email) ? usuario.email : '' "
+            [matTooltipPosition]="'right'"></button>
+    </li>
 </ul>

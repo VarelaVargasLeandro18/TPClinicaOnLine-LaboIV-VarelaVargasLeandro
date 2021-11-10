@@ -15,4 +15,5 @@ export class Turno {
 
     public cancelado? : boolean;
     public historia : any;
+    public finalizado? : boolean;
 }

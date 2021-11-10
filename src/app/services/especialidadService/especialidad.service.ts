@@ -22,5 +22,14 @@ export class EspecialidadService {
   agregarCategoria( categoria : string  ) {
     return this.db.collection(this.collection).add( {tipo: categoria} );
   }
+
+  getCategoria ( categoriaId : string ) {
+    return this.db.collection( this.collection )  
+                    .doc( categoriaId )
+                    .get()
+                    .toPromise()
+                    .then( (snapshot) => snapshot.data() )
+                    .then( (data : any) => data.tipo );
+  }
   
 }

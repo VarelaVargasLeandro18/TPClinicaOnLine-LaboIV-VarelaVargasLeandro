@@ -9,3 +9,16 @@
 .hover:hover {
     cursor: pointer;
 }
+
+.custom-width {
+    max-width: 80%;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 2.5rem 0;
+    margin: 2.5rem .5rem;
+    height: 90%;
+}

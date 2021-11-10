@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
 //#endregion
 
 //#region CAPTCHA
@@ -40,7 +41,8 @@ const material = [
   MatIconModule,
   MatMenuModule,
   MatDividerModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTooltipModule
 ];
 
 const captcha = [

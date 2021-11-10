@@ -31,13 +31,13 @@ export class AdminComponent implements OnInit {
 
   public filtrarPorEspecialista() {
     this.turnos = [];
-    this.mostrarEspecialista = true;
+    this.mostrarEspecialista = !this.mostrarEspecialista;
     this.mostrarTurno = false;
   }
 
   public filtrarPorTurno() {
     this.turnos= [];
-    this.mostrarTurno = true;
+    this.mostrarTurno = !this.mostrarTurno;
     this.mostrarEspecialista = false;
   }
 

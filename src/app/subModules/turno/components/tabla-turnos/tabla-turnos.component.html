@@ -39,7 +39,7 @@
                     </button>
                 </td>
                 <td class="text-center">
-                    <button (click)="this.prepararResenya( i )" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#textModal">
+                    <button [disabled]="!turno.finalizado" (click)="this.prepararResenya( i )" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#textModal">
                         Ver rese&ntilde;a
                     </button>
                 </td>
@@ -127,13 +127,13 @@ data-bs-keyboard="false">
     </div>
     <div class="modal-footer">
         <button 
-            *ngIf="this.encuesta" 
+            *ngIf="this.encuesta && this.iniciado?.razon === '1'" 
             (click)="this.actualizarEncuesta()" 
             type="button" 
             class="btn btn-primary"
             [attr.data-bs-dismiss]="(this.texto) ? 'modal' : ''">Guardar Encuesta</button>
         <button 
-            *ngIf="this.resenya" 
+            *ngIf="this.resenya && this.iniciado?.razon === '2'" 
             (click)="this.actualizarResenya()" 
             type="button" 
             class="btn btn-primary"

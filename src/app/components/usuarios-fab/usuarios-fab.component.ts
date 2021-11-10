@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario/usuario';
 
 @Component({
@@ -7,11 +7,16 @@ import { Usuario } from 'src/app/models/usuario/usuario';
   styleUrls: ['./usuarios-fab.component.css']
 })
 export class UsuariosFABComponent implements OnInit {
+  @Output() usuarioElegido : EventEmitter<Usuario> = new EventEmitter<Usuario>();
   @Input() usuarios : Usuario[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  elegirUsuario( usuario : Usuario ) {
+    this.usuarioElegido.emit(usuario);
   }
 
 }
