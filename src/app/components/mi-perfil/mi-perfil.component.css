@@ -1,3 +1,11 @@
 .custom-img {
     max-width: 250px;
 }
+
+.transparent {
+    background: transparent;
+}
+
+.no-z {
+    z-index: -1;
+}

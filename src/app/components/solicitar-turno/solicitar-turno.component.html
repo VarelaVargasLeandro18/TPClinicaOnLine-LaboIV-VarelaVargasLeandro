@@ -47,7 +47,7 @@
             </li>
         </ul>
     </div>
-    <div *ngIf="this.horario && this.pacientes" class="text-center mb-1">
+    <div *ngIf="this.horario && this.pacientes && this.iniciado?.razon === '0'" class="text-center mb-1">
         <h2>Elija un Paciente</h2>
         <ul class="unstyled-list d-flex justify-content-between align-items-center">
             <li class="mb-1" *ngFor="let paciente of this.pacientes" >

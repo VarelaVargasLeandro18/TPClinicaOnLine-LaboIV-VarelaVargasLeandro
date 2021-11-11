@@ -150,7 +150,7 @@ export class UsuarioDAOService implements OnInit {
                         .where( 'paciente', "==", usuarioEmail )
                         .get()
                         .then( snapshots => snapshots.docs.map( snapshot => snapshot.data() ) )
-                        .then( (data: any) => data.especialista );
+                        .then( (datas: any) => datas.map( (data : any) => data.especialista ) );
   }
 
   private getUsuariosPorRazon( razon : string ) {

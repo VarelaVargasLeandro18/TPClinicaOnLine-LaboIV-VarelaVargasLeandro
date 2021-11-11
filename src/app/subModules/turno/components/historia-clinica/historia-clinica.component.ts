@@ -31,12 +31,12 @@ export class HistoriaClinicaComponent implements OnInit {
       peso: [null, [Validators.required, Validators.min(this.PESO_MINIMO), Validators.max(this.PESO_MAXIMO), Validators.pattern(/^\d+$/)]],
       temperatura: [null, [Validators.required, Validators.min(this.TEMPERATURA_MINIMA), Validators.max(this.TEMPERATURA_MAXIMA), Validators.pattern(/^\d+$/)]],
       presion : [null, [Validators.required, Validators.min(this.PRESION_MINIMA), Validators.max(this.TEMPERATURA_MAXIMA), Validators.pattern(/^\d+$/)]],
-      datoDinamicoUnoNombre: [null],
-      datoDinamicoDosNombre: [null],
-      datoDinamicoTresNombre: [null],
-      datoDinamicoUnoValor: [null],
-      datoDinamicoDosValor: [null],
-      datoDinamicoTresValor: [null]
+      datoDinamicoUnoNombre: [""],
+      datoDinamicoDosNombre: [""],
+      datoDinamicoTresNombre: [""],
+      datoDinamicoUnoValor: [""],
+      datoDinamicoDosValor: [""],
+      datoDinamicoTresValor: [""]
     } );
   }
 
