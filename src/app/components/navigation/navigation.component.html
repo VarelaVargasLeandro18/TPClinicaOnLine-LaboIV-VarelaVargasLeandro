@@ -12,6 +12,7 @@
         {{ (this.usuario.razon == '0') ? 'Turnos' : 'Mis Turnos' }}
       </a>
       <a *ngIf="this.usuario && (this.usuario.razon == '0' || this.usuario.razon == '2') " class="nav-link rounded border border-black" routerLink="solicitarTurno">Solicitar Turno</a>
+      <a *ngIf="this.usuario?.razon == '0'" class="nav-link rounded border border-black" routerLink="stats">Stats</a>
       <a (click)="this.onLogOut()" *ngIf="this.usuario" class="nav-link rounded border border-black hover"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
       <a *ngIf="this.usuario" routerLink="miPerfil">
         <i *ngIf="this.usuario.razon == '0'" class="fas fa-2x fa-user-cog"></i>

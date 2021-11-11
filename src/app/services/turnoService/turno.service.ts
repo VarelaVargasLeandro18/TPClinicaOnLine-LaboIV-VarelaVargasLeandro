@@ -93,4 +93,23 @@ export class TurnoService {
             } ) );
   }
 
+  async getCantidadTurnosPorDias () {
+    const turnos = await this.getTodosLosTurnos();
+    const turnosPorFecha : any = {};
+
+    turnos.forEach( (turno) => turno.fecha = turno.fecha.substring( 0, turno.fecha.indexOf('T') ) );
+
+    turnos.forEach( (turno) => {
+      if ( !(turno.fecha in turnosPorFecha) ) turnosPorFecha[turno.fecha] = [];
+      
+      turnosPorFecha[turno.fecha].push( turno );
+    } );
+    
+    for ( let fecha in turnosPorFecha ) {
+      turnosPorFecha[fecha] = turnosPorFecha[fecha].length;
+    }
+    
+    return turnosPorFecha;
+  }
+
 }

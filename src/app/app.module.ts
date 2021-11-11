@@ -34,6 +34,9 @@ import { UsuarioEnListaComponent } from './components/usuario-en-lista/usuario-e
 import { SolicitarTurnoComponent } from './components/solicitar-turno/solicitar-turno.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { UsuariosFABComponent } from './components/usuarios-fab/usuarios-fab.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { ChartsModule } from 'ng2-charts';
+import { StatsComponent } from './components/stats/stats.component';
 
 const material = [
   BrowserAnimationsModule,
@@ -61,7 +64,9 @@ const captcha = [
     UsuarioEnListaComponent,
     SolicitarTurnoComponent,
     MiPerfilComponent,
-    UsuariosFABComponent
+    UsuariosFABComponent,
+    BarChartComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,7 @@ const captcha = [
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    ChartsModule,
     ...material,
     ...captcha
   ],
