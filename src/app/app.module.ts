@@ -37,6 +37,12 @@ import { UsuariosFABComponent } from './components/usuarios-fab/usuarios-fab.com
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { StatsComponent } from './components/stats/stats.component';
+import { HighlightDirective } from './directives/highlight.directive';
+import { BoldtextDirective } from './directives/boldtext.directive';
+import { GrowTextDirective } from './directives/growtext.directive';
+import { DniPipe } from './pipes/dni.pipe';
+import { ContraseniaPipe } from './pipes/contrasenia.pipe';
+import { HorariosPipe } from './pipes/horarios.pipe';
 
 const material = [
   BrowserAnimationsModule,
@@ -67,6 +73,12 @@ const captcha = [
     UsuariosFABComponent,
     BarChartComponent,
     StatsComponent,
+    HighlightDirective,
+    BoldtextDirective,
+    GrowTextDirective,
+    DniPipe,
+    ContraseniaPipe,
+    HorariosPipe,
   ],
   imports: [
     BrowserModule,

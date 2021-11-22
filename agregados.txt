@@ -19,6 +19,13 @@ al seleccionar se muestran el detalle de los turnos y tiene que aparecer una for
 -------- Administrador ingresa y va a sección usuarios, baja los datos de usuarios en Excel y a parte mostrar Usuarios con FAB-button redondos con Email imagen. Al seleccionarlos se descarga el excel de todos los turnos que tomó, con su especialidad y horario de ese paciente, con qué médico.
 -------- Paciente ingresa en mi perfil, al descargar historia clínica, el PDF tiene que tener Imagen clínica, título, fecha emisión. Además se tiene que poder bajar atenciones realizadas según profesional. Bajar historia completa o atenciones.
 -------- Animación de transición entre componentes, 2 como mínimo que vengan de derecha y que salgan por izquierda.
+---------------------------
+Correccion:
+- Agregar creación de Excel en Usuarios de Admin.
+---------- Cambiar el filtro de campo turnos.
+
+Agregados sprint 4:
+- Usar HighCharts para turnosXDia gráfico de barras.
 
 Utils:
 https://angular.io/api/core/ViewChild 

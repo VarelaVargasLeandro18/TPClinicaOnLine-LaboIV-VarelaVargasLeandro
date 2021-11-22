@@ -49,6 +49,15 @@
 
 </div>
 
+<div *ngIf="this.usuario.razon === '2'">
+    <button
+        mat-fab
+        class="position-absolute left-0 top-0 my-3"
+        (click)="this.descargarParaUsuario()">
+        <mat-icon>cloud_download</mat-icon>
+    </button>
+</div>
+
 <div *ngIf="this.usuario.razon === '0'">
     <button
         mat-fab

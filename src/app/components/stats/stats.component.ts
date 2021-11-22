@@ -3,6 +3,7 @@ import { ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { EspecialidadService } from 'src/app/services/especialidadService/especialidad.service';
 import { TurnoService } from 'src/app/services/turnoService/turno.service';
+import { UsuarioDAOService } from 'src/app/services/usuarioDAO/usuario-dao.service';
 
 @Component({
   selector: 'app-stats',
@@ -16,9 +17,12 @@ export class StatsComponent implements OnInit {
   public lineChartDataTurnosXDia : ChartDataSets[] = [];
   public lineChartLabelsTurnosXDia : Label[] = [];
 
+  public fechasTurnos : string[] = [];
+
   constructor(
     private especialidadService : EspecialidadService,
-    private turnoService : TurnoService
+    private turnoService : TurnoService,
+    private usuarioDAOService : UsuarioDAOService
   ) {
     
   }
@@ -52,7 +56,7 @@ export class StatsComponent implements OnInit {
       label: 'Cantidad de Turnos Por Dias'
     }]
     this.lineChartLabelsTurnosXDia = labelTurnosXDias;
-
+    console.log (await this.usuarioDAOService.getLogs());
   }
 
 }

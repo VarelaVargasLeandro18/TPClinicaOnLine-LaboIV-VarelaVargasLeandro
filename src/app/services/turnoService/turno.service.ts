@@ -112,4 +112,13 @@ export class TurnoService {
     return turnosPorFecha;
   }
 
+  async getCantidadTurnosPorMedicoEntre ( fechaMin : string, fechaMax : string ) {
+    const turnos = await this.getTodosLosTurnos();
+    const turnosPorFecha : any = {};
+
+    turnos.forEach( (turno) => turno.fecha = turno.fecha.substring( 0, turno.fecha.indexOf('T') ) );
+
+    
+  }
+
 }

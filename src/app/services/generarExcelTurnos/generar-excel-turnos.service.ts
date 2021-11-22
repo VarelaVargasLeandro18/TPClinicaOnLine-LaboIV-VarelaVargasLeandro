@@ -22,7 +22,7 @@ export class GenerarExcelTurnosService {
 
     const titleRow = worksheet.addRow( [title] );
     titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true }
-    worksheet.mergeCells('A1:F2');
+    worksheet.mergeCells('A1:G2');
 
     //Add Header Row
     let headerRow = worksheet.addRow(header);

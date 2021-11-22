@@ -1,4 +1,12 @@
-<div class="container-fluid py-5 text-center">
+<div class="container-fluid py-5">
+    <div class="col-12 text-center">
+        <label class="form-label" for="text">
+            Ingrese texto:
+        </label>
+        <input (input)="this.onSearch($event.target)" class="form-control w-100" type="text" name="text" id="text">
+    </div>
+</div>
+<!-- <div class="container-fluid py-5 text-center">
     <h1 class="display-5 fw-bold">Campo por el que buscar (turno)</h1>
     <ul class="grid-list">
         <li *ngFor="let campo of this.camposTurno">
@@ -36,4 +44,4 @@
         <button (click)="this.buscar()" class="btn btn-outline-secondary" type="button">Buscar</button>
       </div>
     </div>
-</div>
+</div> -->

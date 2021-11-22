@@ -53,7 +53,15 @@ export class MiPerfilComponent implements OnInit {
     for ( let mail of especialistasMail )
       especialistasAux.push( await this.usuarioDAOService.getUsuario( mail ) );
 
-    this.especialistas = especialistasAux;
+    this.especialistas = especialistasAux.filter( (value : any, index, arr : any[]) => {
+      
+      for ( let auxI = ++index; auxI < arr.length; auxI++ ) {
+        
+        if ( arr[auxI].email === value.email ) return false;
+        
+      }
+      return true;
+    } );
     
     this.triggerEspecialista?.openMenu();
   }
@@ -74,6 +82,14 @@ export class MiPerfilComponent implements OnInit {
     const historias = this.separarHistoriasClinicas( turnos );
     this.pdfService.createTablePDF( nombreDoc, historias );
     
+  }
+
+  async descargarParaUsuario() {
+    const nombreDoc = this.usuario.email + ".pdf";
+    const turnos = await this.turnoService.getTurnosByPaciente( this.usuario.email );
+    const historias = this.separarHistoriasClinicas( turnos );
+    this.pdfService.createTablePDF( nombreDoc, historias );
+    return
   }
 
   separarHistoriasClinicas ( turnos : Turno[] ) {

@@ -13,6 +13,8 @@ export class FiltroTurnoComponent implements OnInit {
   @Input() paciente? : Usuario;
   @Input() especialista? : Usuario;
 
+  private todosLosTurnos : Turno[] = [];
+
   public readonly camposTurno : string[] = [
     "fecha", "resenia", "encuesta", "motivo",
     "especialidad", "calificacion", "estado",
@@ -36,7 +38,8 @@ export class FiltroTurnoComponent implements OnInit {
     private turnoService : TurnoService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.todosLosTurnos = await this.turnoService.getTodosLosTurnos();
   }
 
   private defaultValues () {
@@ -95,10 +98,49 @@ export class FiltroTurnoComponent implements OnInit {
 
   }
 
+  onSearch( target : any ) {
+    let turnos = [];
+    const valor = target.value;
+
+    for ( let turno of this.todosLosTurnos ) {
+      
+      if ( this.chequearValor( turno, valor ) ) {
+        turnos.push(turno);
+        continue
+      }
+
+    }
+
+    turnos = this.filtrar( turnos );
+    console.log(turnos);
+    this.turnos.emit( turnos );
+  }
+
+  private chequearValor( turno : Turno, valor : string ) {
+    
+    for ( let turnoValor of Object.values(turno) ) {
+      if ( turnoValor.toString().indexOf( valor ) > -1 ) return true;
+    }
+
+    const historia : any = turno.historia;
+
+    if ( !historia ) return false;
+
+    const historiaValues : any = Object.values(historia);
+
+    for ( let historiaValor of historiaValues ) {
+      if ( historiaValor.toString().indexOf( valor ) > -1 ) return true;
+    }
+
+    return false;
+  }
+
   private filtrar( turnos : Turno[] ) {
     if ( this.paciente ) 
       return this.filtrarPorPaciente(turnos);
-    return this.filtrarPorEspecialista(turnos);
+    if( this.especialista )
+      return this.filtrarPorEspecialista(turnos);
+    return turnos;
   }
 
   private filtrarPorPaciente( turnos : Turno[] ) {

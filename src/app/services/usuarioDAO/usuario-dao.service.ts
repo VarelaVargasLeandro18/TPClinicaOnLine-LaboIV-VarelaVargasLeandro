@@ -102,6 +102,14 @@ export class UsuarioDAOService implements OnInit {
     this.db.collection('logs').add( {...log} );
   }
 
+  getLogs() {
+    return this.db.collection('logs')
+            .get()
+            .toPromise()
+            .then( (snapshots) => snapshots.docs ).then( (docs) => docs.map( (doc) => doc.data() ) )
+            .then( (log : any) => { return {hora: log.hora, usuario: log.usuario} } );
+  }
+
   async getAdmins() {
     return await this.getUsuariosPorRazon("0");
   }
