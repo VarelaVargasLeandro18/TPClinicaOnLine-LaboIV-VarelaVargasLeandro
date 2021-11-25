@@ -23,12 +23,13 @@ export class EspecialidadService {
     return this.db.collection(this.collection).add( {tipo: categoria} );
   }
 
-  getCategoria ( categoriaId : string ) {
-    return this.db.collection( this.collection )  
-                    .doc( categoriaId )
+  getCategoria ( categoria : string ) {
+    return this.db.collection( this.collection )
+                    .ref
+                    .where( "tipo", "==", categoria )
                     .get()
-                    .toPromise()
-                    .then( (snapshot) => snapshot.data() )
+                    .then( (snapshots) => snapshots.docs )
+                    .then( (docs) => docs.map( (doc) => doc.data() ) )
                     .then( (data : any) => data.tipo );
   }
   

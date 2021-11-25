@@ -13,6 +13,7 @@ export class GenerarExcelTurnosService {
   ) { }
 
   async generarExcel ( turnos : Turno[], nomApe : string ) {
+    console.log(turnos);
     const title = nomApe;
     const header = ["Especialidad", "Horario", "Especialista", "Paciente", "Motivo", "Finalizado", "Cancelado"]
     const data = await this.generarData( turnos );
