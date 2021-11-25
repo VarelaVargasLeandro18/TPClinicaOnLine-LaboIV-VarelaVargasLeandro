@@ -23,7 +23,6 @@ export class TurnoService {
   async averiguarSiHayTurnoEnHorario ( especialista : string, fecha : string ) {
     const turnos = await this.getTurnosByEspecialista( especialista );
     if ( turnos.length === 0 ) return 
-    
     const MIN30 = (30*60*1000);
     const fechaParsed = Date.parse( fecha );
     const fechaMinus30Min = fechaParsed - MIN30;
@@ -95,10 +94,40 @@ export class TurnoService {
 
   async getCantidadTurnosPorDias () {
     const turnos = await this.getTodosLosTurnos();
+
+    return this.ordenarTurnosPorFecha(turnos);
+  }
+
+  async getCantidadTurnosPorMedicoEntre ( fechaMin : string, fechaMax : string, finalizado? : boolean ) {
+    let turnos = await this.getTodosLosTurnos();
+    fechaMin += "T00:00";
+    fechaMax += "T23:59";
+    
+    if ( finalizado ) turnos = turnos.filter( (turnos) => turnos.finalizado == finalizado );
+    
+    const turnosFiltrados = this.filterTurnoEntreFechas( turnos, fechaMin, fechaMax );
+    return this.ordenarTurnosPorFecha(turnosFiltrados);
+  }
+
+  filterTurnoEntreFechas( turnos : any[], fechaMin : string, fechaMax : string ) {
+    const fechaParsedMin = Date.parse( fechaMin );
+    const fechaParsedMax = Date.parse( fechaMax );
+    
+    return turnos.filter( (turno : any) => {
+      const fechaOfTurnoParsed = Date.parse( turno.fecha );
+      
+      return (  (fechaOfTurnoParsed > fechaParsedMin && 
+            fechaOfTurnoParsed < fechaParsedMax ) && 
+            !turno.cancelado ) 
+    } );
+
+  }
+
+  ordenarTurnosPorFecha( turnos : any[] ) {
     const turnosPorFecha : any = {};
 
     turnos.forEach( (turno) => turno.fecha = turno.fecha.substring( 0, turno.fecha.indexOf('T') ) );
-
+    
     turnos.forEach( (turno) => {
       if ( !(turno.fecha in turnosPorFecha) ) turnosPorFecha[turno.fecha] = [];
       
@@ -108,17 +137,7 @@ export class TurnoService {
     for ( let fecha in turnosPorFecha ) {
       turnosPorFecha[fecha] = turnosPorFecha[fecha].length;
     }
-    
     return turnosPorFecha;
-  }
-
-  async getCantidadTurnosPorMedicoEntre ( fechaMin : string, fechaMax : string ) {
-    const turnos = await this.getTodosLosTurnos();
-    const turnosPorFecha : any = {};
-
-    turnos.forEach( (turno) => turno.fecha = turno.fecha.substring( 0, turno.fecha.indexOf('T') ) );
-
-    
   }
 
 }

@@ -106,8 +106,7 @@ export class UsuarioDAOService implements OnInit {
     return this.db.collection('logs')
             .get()
             .toPromise()
-            .then( (snapshots) => snapshots.docs ).then( (docs) => docs.map( (doc) => doc.data() ) )
-            .then( (log : any) => { return {hora: log.hora, usuario: log.usuario} } );
+            .then( (snapshots) => snapshots.docs ).then( (docs) => docs.map( (doc) => doc.data() ) );
   }
 
   async getAdmins() {

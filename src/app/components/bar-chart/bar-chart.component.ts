@@ -14,11 +14,9 @@ export class BarChartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input()lineChartData: ChartDataSets[] = [
-    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-  ];
+  @Input()lineChartData: ChartDataSets[] = [];
 
-  @Input()lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  @Input()lineChartLabels: Label[] = [];
 
   lineChartOptions : any = {
     maintainAspectRatio: false,

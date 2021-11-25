@@ -25,7 +25,7 @@ Correccion:
 ---------- Cambiar el filtro de campo turnos.
 
 Agregados sprint 4:
-- Usar HighCharts para turnosXDia gráfico de barras.
+----------- Usar HighCharts para turnosXDia gráfico de barras.
 
 Utils:
 https://angular.io/api/core/ViewChild 

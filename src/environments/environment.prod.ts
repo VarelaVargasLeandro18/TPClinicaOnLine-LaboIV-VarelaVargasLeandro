@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyBYEnEGmOKDT5PqTLRJ2Jh4tisOyFDvxhM",
-    authDomain: "labo-iv-tpclinica-lvv.firebaseapp.com",
-    projectId: "labo-iv-tpclinica-lvv",
-    storageBucket: "labo-iv-tpclinica-lvv.appspot.com",
-    messagingSenderId: "927885202294",
-    appId: "1:927885202294:web:0c7302c9b03e525078e057"
+    apiKey: "AIzaSyDY-bJcyTl0KUzvH16-qngxEdo0L4V4WUg",
+    authDomain: "tpclinicasegundavez.firebaseapp.com",
+    projectId: "tpclinicasegundavez",
+    storageBucket: "tpclinicasegundavez.appspot.com",
+    messagingSenderId: "366617682328",
+    appId: "1:366617682328:web:8588575d60e8ceb0944bed"
   },
   recaptcha: {
     siteKey: '6LcTjP0cAAAAAGDqanxLPJagGfiC7u2KyP1xynHD'

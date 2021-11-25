@@ -162,7 +162,7 @@ export class RegistroComponent implements OnInit {
 
   private registro() {
     const razon = this.form.controls.razon.value;
-    const especialidad = this.form.controls.especialidad.value;
+    let especialidad = this.form.controls.especialidad.value;
     const nombre = this.form.controls.nombre.value;
     const apellido = this.form.controls.apellido.value;
     const edad = this.form.controls.edad.value;
@@ -185,7 +185,8 @@ export class RegistroComponent implements OnInit {
     usuario.imagenUnoUrl = imagenUno;
 
     if ( razon === "1" /* ESPECIALISTA */ ) {
-      usuario.especialidad = especialidad;
+      if ( especialidad == null || especialidad == undefined || especialidad == ""  ) usuario.especialidad = especialidadNueva;
+      else usuario.especialidad = especialidad;
       usuario.aprobado = false;
     }
     
@@ -197,9 +198,9 @@ export class RegistroComponent implements OnInit {
     this.usuarioDAOService.register( usuario )
       .then( () => {
         this.mensajeRegistro = "USUARIO REGISTRADO!";
+        this.form.reset();
         if ( !this.usuarioDAOService.login( usuario ) ) {
           this.mensajeRegistro = "USUARIO REGISTRADO, NO SE PUEDE INICIAR SESIÓN HASTA QUE ESTÉ APROBADO.";
-          this.form.reset();
         }
       } )
       .catch( (error) => {this.mensajeErrorRegistro = "ERROR AL REGISTRAR USUARIO!"; console.error(error)} );
@@ -208,6 +209,17 @@ export class RegistroComponent implements OnInit {
       this.especialidadesService.agregarCategoria(especialidadNueva).then( () => console.log("Especialidad Agregada!!") );
     }
 
+  }
+
+  nuevaEspecialidad( nueva : string ) {
+    if ( nueva != "" ) {
+      this.form.controls.especialidad.setValidators(null);
+      this.form.controls.especialidad.disable();
+    }
+  }
+
+  especalidad( especialidad : string ) {
+    this.form.controls.especialidadNueva.disable();
   }
 
 }

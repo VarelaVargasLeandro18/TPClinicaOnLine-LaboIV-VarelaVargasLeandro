@@ -19,7 +19,7 @@
 
         <div *ngIf="this.isRequiredField('especialidad')" class="col-12">
             <label for="speciality" class="form-label">Especialidad</label>
-            <select formControlName="especialidad" class="form-select" id="speciality" required>
+            <select (ngModelChange)="this.especalidad($event)" formControlName="especialidad" class="form-select" id="speciality" required>
                 <option [value]=undefined disabled selected>Elige</option>
                 <option *ngFor="let especialidad of this.especialidades" [value]="especialidad.id">{{especialidad.tipo}}</option>
             </select>
@@ -28,9 +28,9 @@
             </div>
         </div>
 
-        <div *ngIf="this.isRequiredField('especialidad')" class="col-12">
+        <div *ngIf="this.form.controls.razon.value == '1'" class="col-12">
             <label for="especialidadNueva" class="form-label">Especialidad</label>
-            <input formControlName="especialidadNueva" type="text" class="form-control" id="especialidadNueva" placeholder="Especialidad" value="">
+            <input (ngModelChange)="this.nuevaEspecialidad($event)" formControlName="especialidadNueva" type="text" class="form-control" id="especialidadNueva" placeholder="Especialidad">
         </div>
 
         <div *ngIf="this.isRequiredField('nombre')" class="col-sm-6">

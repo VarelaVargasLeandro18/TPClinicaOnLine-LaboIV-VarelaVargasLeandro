@@ -43,6 +43,8 @@ import { GrowTextDirective } from './directives/growtext.directive';
 import { DniPipe } from './pipes/dni.pipe';
 import { ContraseniaPipe } from './pipes/contrasenia.pipe';
 import { HorariosPipe } from './pipes/horarios.pipe';
+import { BarChartHighChartsComponent } from './components/bar-chart-high-charts/bar-chart-high-charts.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 const material = [
   BrowserAnimationsModule,
@@ -79,6 +81,7 @@ const captcha = [
     DniPipe,
     ContraseniaPipe,
     HorariosPipe,
+    BarChartHighChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ const captcha = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     ChartsModule,
+    HighchartsChartModule,
     ...material,
     ...captcha
   ],

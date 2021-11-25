@@ -1,0 +1,8 @@
+.table-maxh {
+    max-height: 15rem;
+    overflow-y: scroll;
+}
+
+.selectable {
+    cursor: pointer;
+}
